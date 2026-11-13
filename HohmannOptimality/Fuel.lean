@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. Delta-v is not generally identical to propellant.
+/-
+Authors: Qianli Ma
+Delta-v is not generally identical to propellant.
 This corollary uses one ideal stage, fixed exhaust speed, same initial mass,
 no staging/dry-mass changes/refuelling and no other propellant expenditure.
 -/

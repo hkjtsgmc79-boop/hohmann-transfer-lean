@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. Conservation is DERIVED from genuine derivatives.
+/-
+Authors: Qianli Ma
+Conservation is DERIVED from genuine derivatives.
 Only the smooth coast interval is modeled; impulses are endpoint velocity jumps.
 -/
 import HohmannOptimality.PlanarState
@@ -42,15 +44,18 @@ lemma radius_deriv {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁
     exact (lt_irrefl 0) hr
   have hd := (((a.dx t ht).pow 2).add ((a.dy t ht).pow 2)).sqrt harg
   convert hd using 1
-  dsimp [state, PlanarState.radius]
-  field_simp [ne_of_gt hr]
+  · rfl
+  · simp only [state, PlanarState.radius, Pi.add_apply, Pi.pow_apply, Nat.reduceSub,
+      pow_one, Nat.cast_ofNat]
+    field_simp [ne_of_gt hr]
 
 lemma angular_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
     HasDerivAt (fun u => (a.state u).angular) 0 t := by
   have hd := ((a.dx t ht).mul (a.dvy t ht)).sub ((a.dy t ht).mul (a.dvx t ht))
   convert hd using 1
-  field_simp [ne_of_gt (a.radius_pos t ht)]
-  ring
+  · rfl
+  · field_simp [ne_of_gt (a.radius_pos t ht)]
+    ring
 
 lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
     HasDerivAt (fun u => (a.state u).energy mu) 0 t := by
@@ -58,9 +63,10 @@ lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a
   have hk := ((a.dvx t ht).pow 2).add ((a.dvy t ht).pow 2)
   have hp := (hasDerivAt_const t (2*mu)).div (a.radius_deriv ht) hr
   convert hk.sub hp using 1
-  dsimp [state, PlanarState.radius] at hr ⊢
-  field_simp [hr]
-  ring
+  · rfl
+  · dsimp [state, PlanarState.radius] at hr ⊢
+    field_simp [hr]
+    ring
 
 lemma equal_endpoints_of_zero_deriv {f : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b)
     (hd : ∀ t ∈ Icc a b, HasDerivAt f 0 t) : f b=f a := by

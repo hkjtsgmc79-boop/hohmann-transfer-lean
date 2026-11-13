@@ -1,6 +1,6 @@
 {
-  "lean": "4.30.0",
-  "mathlib_commit": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "lean": "4.35.0",
+  "mathlib_commit": "56a005855ea17e0b0958f73ec801ae140b0a1679",
   "mathlib_url": "https://github.com/leanprover-community/mathlib4.git",
   "python_for_checks": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
   "platform_of_checks": "Linux-6.18.57-x86_64-with-glibc2.41",
@@ -8,5 +8,18 @@
     "sympy": "1.14.0",
     "numpy": "2.3.5",
     "scipy": "1.17.0"
+  },
+  "lean_commit": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+  "physlib_reference_commit": "adccea9195c7c347a5f8cde1ddf6874f89ea6a9a",
+  "packages": {
+    "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+    "plausible": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+    "LeanSearchClient": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+    "importGraph": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+    "proofwidgets": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+    "aesop": "4a174c490d8707121c4a9290800489f105d85e07",
+    "Qq": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+    "batteries": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+    "Cli": "c24fe6078c630e89b489bffe59b3e20ac30d12c8"
   }
 }

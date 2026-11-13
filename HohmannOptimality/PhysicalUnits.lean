@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. Restore arbitrary positive μ and length scale. -/
+/-
+Authors: Qianli Ma
+Restore arbitrary positive μ and length scale. -/
 import HohmannOptimality.EndpointOptimality
 
 noncomputable section

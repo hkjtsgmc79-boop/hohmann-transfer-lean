@@ -1,9 +1,7 @@
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 import Mathlib.Analysis.Calculus.Deriv.Inverse
 import Mathlib.Analysis.Calculus.Deriv.Inv

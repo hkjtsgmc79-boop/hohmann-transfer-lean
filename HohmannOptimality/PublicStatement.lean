@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. Freeze theorem headers before local repair. -/
+/-
+Authors: Qianli Ma
+Public two-impulse optimality and finite cost comparison. -/
 import HohmannOptimality.Fuel
 
 noncomputable section

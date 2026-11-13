@@ -19,8 +19,8 @@ S6. Mathlib official calculus and square-root documentation. Used to ground API 
 https://leanprover-community.github.io/mathlib4_docs/Mathlib/Analysis/Calculus/MeanValue.html
 https://leanprover-community.github.io/mathlib4_docs/Mathlib/Analysis/SpecialFunctions/Pow/Deriv.html
 
-Code dependency: Lean4.30.0, Mathlib c5ea00351c28e24afc9f0f84379aa41082b1188f, inherited from the user's prior working baseline. This runtime has no Lean. No independent compiler verification was obtained.
+See `dependency-lock.json` and the release verification records for the toolchain, Mathlib pin, and build results.
 
-H1 provenance: attached Hohmann_Transfer_H1.zip preserved in baseline/. Its12 modular proof sources were copied byte-for-byte, checked by a real automated test. It remains an uncompiled source baseline, not a proof certificate.
+H1 provenance: the original source archive is preserved at `baseline/Hohmann_Transfer_H1.zip`. The verified modules are in `HohmannTransfer/`.
 
-AI disclosure: H2 mathematical derivations, Lean candidates, tools and documentation were generated with AI assistance. A human submitting any upstream contribution must review the theorem semantics, code, sources and build evidence and take responsibility for the contribution. No upstream submission has been made in this round.
+AI disclosure: H2 mathematical derivations, Lean candidates, tools and documentation were generated with AI assistance. A human submitting any upstream contribution must review the theorem semantics, code, sources and build evidence and take responsibility for the contribution. The PhyslibAlpha adaptation is tracked in [Draft PR #2077](https://github.com/leanprover-community/physlib/pull/2077).

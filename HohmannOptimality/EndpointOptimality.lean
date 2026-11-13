@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. Endpoints allow radial velocity and signed momentum. -/
+/-
+Authors: Qianli Ma
+Endpoints allow radial velocity and signed momentum. -/
 import HohmannOptimality.EndpointBounds
 
 noncomputable section

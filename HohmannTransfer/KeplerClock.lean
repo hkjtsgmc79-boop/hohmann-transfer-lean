@@ -1,9 +1,7 @@
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 import HohmannTransfer.Geometry
 
@@ -19,8 +17,7 @@ def clock (p : Parameters) (u : ℝ) : ℝ := (u - p.e * Real.sin u) / p.n
 
 lemma hasDerivAt_clock (p : Parameters) (u : ℝ) :
     HasDerivAt (clock p) (D p u / p.n) u := by
-  simpa [clock, D] using
-    ((hasDerivAt_id u).sub ((Real.hasDerivAt_sin u).const_mul p.e)).div_const p.n
+  exact ((hasDerivAt_id u).sub ((Real.hasDerivAt_sin u).const_mul p.e)).div_const p.n
 lemma clock_continuous (p : Parameters) : Continuous (clock p) := by
   exact continuous_iff_continuousAt.2 (fun u => (hasDerivAt_clock p u).continuousAt)
 lemma clock_strictMono (p : Parameters) : StrictMono (clock p) := by

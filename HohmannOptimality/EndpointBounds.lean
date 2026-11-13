@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. Algebraic global bounds, with no calculus/KKT. -/
+/-
+Authors: Qianli Ma
+Algebraic global bounds, with no calculus/KKT. -/
 import HohmannOptimality.Shape
 
 noncomputable section

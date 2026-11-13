@@ -69,13 +69,13 @@ def generate_exports(root: Path) -> None:
                 if line.startswith('import Mathlib') and line not in imports: imports.append(line)
             body='\n'.join(line for line in source.splitlines() if not line.startswith('import '))
             bodies.append(f'\n-- SOURCE MODULE: {directory}/{n}.lean\n'+body)
-        (root/filename).write_text('/- Generated mechanically from the modular Hohmann sources. -/\n'+'\n'.join(imports)+'\n'+
+        (root/filename).write_text('/- Generated mechanically from the modular Hohmann sources. Author: Qianli Ma (马千里). -/\n'+'\n'.join(imports)+'\n'+
                                    '\n'.join(bodies)+'\n')
     paths=['lean-toolchain','lakefile.toml','HohmannOptimality.lean','HohmannOptimalityPhysical.lean']
     paths += [f'HohmannOptimality/{n}.lean' for n in MODULES]
     paths += ['Audit.lean','AuditPhysical.lean','ApiProbe.lean','Examples.lean']
     (root/'Hohmann_Transfer_H2_Source.txt').write_text(
-        'H2 NEW SOURCE — UNCOMPILED CANDIDATES (H1 baseline included separately)\n\n'+
+        'HOHMANN H2 MODULAR SOURCE EXPORT\n\n'+
         '\n'.join('='*72+'\nFILE: '+f+'\n'+'='*72+'\n'+(root/f).read_text() for f in paths))
 
 

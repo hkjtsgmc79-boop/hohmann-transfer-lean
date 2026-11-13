@@ -1,0 +1,916 @@
+{
+  "run_id": "20261113T132407332235Z",
+  "scope": "full",
+  "status": "PASS",
+  "lean_verified": true,
+  "physical_attainment_verified": true,
+  "commands": [
+    {
+      "tag": "lean-version",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "--version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.022922499999999985,
+      "log": "lean-version.log",
+      "sha256": "469679dd8c6cec218a7a5e9a36c7a27decc968dacfe057ab3083f0ef43600dac"
+    },
+    {
+      "tag": "mathlib-commit",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/mathlib",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.16170154100000003,
+      "log": "mathlib-commit.log",
+      "sha256": "b8229665c405f86369704b424ffcfc2e08db2b809280cab9e0aaaa806fddf2e7"
+    },
+    {
+      "tag": "mathlib-status",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/mathlib",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06757358299999999,
+      "log": "mathlib-status.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "pin-plausible",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/plausible",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03610979200000003,
+      "log": "pin-plausible.log",
+      "sha256": "d730b95c27722b2eb44f818512df47ab62e115e1ed64fe79c5e4ef63a2985415"
+    },
+    {
+      "tag": "status-plausible",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/plausible",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.04343725000000004,
+      "log": "status-plausible.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "pin-LeanSearchClient",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/LeanSearchClient",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.029872832999999988,
+      "log": "pin-LeanSearchClient.log",
+      "sha256": "ff5938c8d727868a984ba7e3a53351458fcb498ab525e4541eaab4717936df11"
+    },
+    {
+      "tag": "status-LeanSearchClient",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/LeanSearchClient",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06600837500000001,
+      "log": "status-LeanSearchClient.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "pin-importGraph",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/importGraph",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03183966699999996,
+      "log": "pin-importGraph.log",
+      "sha256": "e4f2c09ac2341eb19583e9ac452600614f5d57dd481407156846612d23bf52b3"
+    },
+    {
+      "tag": "status-importGraph",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/importGraph",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03589041699999995,
+      "log": "status-importGraph.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "pin-proofwidgets",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/proofwidgets",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008422417000000015,
+      "log": "pin-proofwidgets.log",
+      "sha256": "931756f9a8b6c5f48bec79b679703b7b48d31b9c0cdc9ae3b3ed197d3da3b0f8"
+    },
+    {
+      "tag": "status-proofwidgets",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/proofwidgets",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.050105332999999974,
+      "log": "status-proofwidgets.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "pin-aesop",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/aesop",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.016811624999999997,
+      "log": "pin-aesop.log",
+      "sha256": "80e4949281db195075562868091bd1910a4a4f1480a8ec538ed93f50c53e5648"
+    },
+    {
+      "tag": "status-aesop",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/aesop",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.030176916000000054,
+      "log": "status-aesop.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "pin-Qq",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/Qq",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008333208000000036,
+      "log": "pin-Qq.log",
+      "sha256": "02650859e6949cf622ec0737a58200ec93ae4fcb947a26e880259c5a5eb7b23d"
+    },
+    {
+      "tag": "status-Qq",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/Qq",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.013621541999999986,
+      "log": "status-Qq.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "pin-batteries",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/batteries",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00839275000000006,
+      "log": "pin-batteries.log",
+      "sha256": "1e0930b192dd58d5d04b1a588f0e2431d4e888cacdc95723384c5dcdfa410ae8"
+    },
+    {
+      "tag": "status-batteries",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/batteries",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.043024375000000004,
+      "log": "status-batteries.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "pin-Cli",
+      "argv": [
+        "git",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/Cli",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008840499999999918,
+      "log": "pin-Cli.log",
+      "sha256": "74d733b897b8c450f0880d93ab02593440b80760b7ac10cdbe9a2fd8268dd6ec"
+    },
+    {
+      "tag": "status-Cli",
+      "argv": [
+        "git",
+        "--no-optional-locks",
+        "-C",
+        "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/Cli",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "exit_code": 0,
+      "seconds": 0.012652333000000016,
+      "log": "status-Cli.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "lake-version",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lake",
+        "--version"
+      ],
+      "exit_code": 0,
+      "seconds": 0.026093583999999947,
+      "log": "lake-version.log",
+      "sha256": "165f92ed239a8c7db772bf5ee9d58c59357b489951582a12c86dc9d8e06b23a2"
+    },
+    {
+      "tag": "ApiProbe",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/ApiProbe.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/ApiProbe.ilean",
+        "ApiProbe.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 1.816692709,
+      "log": "ApiProbe.log",
+      "sha256": "24015569c9ad1990af9674ecb371be3021345890100e29beb1126e6b007af179"
+    },
+    {
+      "tag": "Shape",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/Shape.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/Shape.ilean",
+        "HohmannOptimality/Shape.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 1.967063542,
+      "log": "Shape.log",
+      "sha256": "78fb1c87216c8f7f5def85841316844cf18fd7abb937f78516b754fd5eeb070a"
+    },
+    {
+      "tag": "EndpointBounds",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/EndpointBounds.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/EndpointBounds.ilean",
+        "HohmannOptimality/EndpointBounds.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.0655268750000007,
+      "log": "EndpointBounds.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "EndpointOptimality",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/EndpointOptimality.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/EndpointOptimality.ilean",
+        "HohmannOptimality/EndpointOptimality.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.5865167500000004,
+      "log": "EndpointOptimality.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "PhysicalUnits",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/PhysicalUnits.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/PhysicalUnits.ilean",
+        "HohmannOptimality/PhysicalUnits.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.5719418330000003,
+      "log": "PhysicalUnits.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "PlanarState",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/PlanarState.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/PlanarState.ilean",
+        "HohmannOptimality/PlanarState.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.161132166,
+      "log": "PlanarState.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "KeplerConservation",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/KeplerConservation.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/KeplerConservation.ilean",
+        "HohmannOptimality/KeplerConservation.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.3208647079999984,
+      "log": "KeplerConservation.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "Bielliptic",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/Bielliptic.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/Bielliptic.ilean",
+        "HohmannOptimality/Bielliptic.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 3.2301079580000014,
+      "log": "Bielliptic.log",
+      "sha256": "951696ec5e7bcfd2e6eb311bfd6d532ee017081f4a0f6c26485aa5b2f14008b9"
+    },
+    {
+      "tag": "Fuel",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/Fuel.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/Fuel.ilean",
+        "HohmannOptimality/Fuel.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.80962375,
+      "log": "Fuel.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "PublicStatement",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/PublicStatement.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/PublicStatement.ilean",
+        "HohmannOptimality/PublicStatement.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.079457250000001,
+      "log": "PublicStatement.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "core-root",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality.ilean",
+        "HohmannOptimality.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.326745959,
+      "log": "core-root.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "examples",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/Examples.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/Examples.ilean",
+        "Examples.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 1.826835208000002,
+      "log": "examples.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "core-single",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/Hohmann_Transfer_H2_Core_All.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/Hohmann_Transfer_H2_Core_All.ilean",
+        "Hohmann_Transfer_H2_Core_All.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 6.061462500000001,
+      "log": "core-single.log",
+      "sha256": "987f2a00e27f240153bcadde12a2f57f6c914ca9315608ed29808fb995106eb9"
+    },
+    {
+      "tag": "core-axioms",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/Audit.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/Audit.ilean",
+        "Audit.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 3.3794965419999983,
+      "log": "core-axioms.log",
+      "sha256": "6334d97f674c52e30fbaa6ab956541517660daf8e4b4dc94cdccf9739ac3100e"
+    },
+    {
+      "tag": "H1-Parameters",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Parameters.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Parameters.ilean",
+        "HohmannTransfer/Parameters.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.236847333,
+      "log": "H1-Parameters.log",
+      "sha256": "212281d8dffc312f2321f62c1a7fb4f0a30f5b78727324686b5731f57fe493ec"
+    },
+    {
+      "tag": "H1-Plane",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Plane.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Plane.ilean",
+        "HohmannTransfer/Plane.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.5188709589999974,
+      "log": "H1-Plane.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "H1-Geometry",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Geometry.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Geometry.ilean",
+        "HohmannTransfer/Geometry.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.139624542,
+      "log": "H1-Geometry.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "H1-KeplerClock",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/KeplerClock.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/KeplerClock.ilean",
+        "HohmannTransfer/KeplerClock.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.0836371250000028,
+      "log": "H1-KeplerClock.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "H1-Differentiation",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Differentiation.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Differentiation.ilean",
+        "HohmannTransfer/Differentiation.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.4521764579999967,
+      "log": "H1-Differentiation.log",
+      "sha256": "146734e1cc9baf3248605f0ffe434e7699aa4c36a052a046716f533c8864b0be"
+    },
+    {
+      "tag": "H1-Dynamics",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Dynamics.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Dynamics.ilean",
+        "HohmannTransfer/Dynamics.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.2871390829999996,
+      "log": "H1-Dynamics.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "H1-Circular",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Circular.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Circular.ilean",
+        "HohmannTransfer/Circular.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.006787541999998,
+      "log": "H1-Circular.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "H1-Endpoints",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Endpoints.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Endpoints.ilean",
+        "HohmannTransfer/Endpoints.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.116795041000003,
+      "log": "H1-Endpoints.log",
+      "sha256": "b9ef66884b081828453eac6ce42e6222561e202d3ac5a476db4b972601f7db80"
+    },
+    {
+      "tag": "H1-Impulses",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Impulses.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Impulses.ilean",
+        "HohmannTransfer/Impulses.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.156797916000002,
+      "log": "H1-Impulses.log",
+      "sha256": "6437e3f0a2e55a0e867c03421ac4847798a932a9f2f6d8471630c72ebc9a7981"
+    },
+    {
+      "tag": "H1-Invariants",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Invariants.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Invariants.ilean",
+        "HohmannTransfer/Invariants.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.0569947090000014,
+      "log": "H1-Invariants.log",
+      "sha256": "ea3da967d91387dfba6fa3e293cec5a164be86eb0e127c3c59ae3b77d140a852"
+    },
+    {
+      "tag": "H1-Transfer",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Transfer.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/Transfer.ilean",
+        "HohmannTransfer/Transfer.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.014630249999996,
+      "log": "H1-Transfer.log",
+      "sha256": "41f19f762c54ee42458ad479da670279a5756e0cf3290d443962e794707f8983"
+    },
+    {
+      "tag": "H1-PublicStatement",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/PublicStatement.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer/PublicStatement.ilean",
+        "HohmannTransfer/PublicStatement.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.0826373339999904,
+      "log": "H1-PublicStatement.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "H1-root",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannTransfer.ilean",
+        "HohmannTransfer.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.055949333000001,
+      "log": "H1-root.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "H1Bridge",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/H1Bridge.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/H1Bridge.ilean",
+        "HohmannOptimality/H1Bridge.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 3.1659879580000023,
+      "log": "H1Bridge.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "BiellipticWitness",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/BiellipticWitness.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimality/BiellipticWitness.ilean",
+        "HohmannOptimality/BiellipticWitness.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.827640374999987,
+      "log": "BiellipticWitness.log",
+      "sha256": "c4e144c3de4c6910981ca16c8147147aececb2e0969363cea25a471936602bb1"
+    },
+    {
+      "tag": "physical-root",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimalityPhysical.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/HohmannOptimalityPhysical.ilean",
+        "HohmannOptimalityPhysical.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 1.9058873749999918,
+      "log": "physical-root.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "tag": "full-single",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/Hohmann_Transfer_H2_All.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/Hohmann_Transfer_H2_All.ilean",
+        "Hohmann_Transfer_H2_All.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 8.421171333000004,
+      "log": "full-single.log",
+      "sha256": "4b77e1323ffa37e694b475a1b323ff540e46e29ecd946b5f3bb55669743ac6bf"
+    },
+    {
+      "tag": "physical-axioms",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/AuditPhysical.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/AuditPhysical.ilean",
+        "AuditPhysical.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 3.1696617919999994,
+      "log": "physical-axioms.log",
+      "sha256": "4ebf0c30ab3ec489be7b95293e992ee4560834c101a03ca5e4730ec62cbbf543"
+    },
+    {
+      "tag": "all-axioms",
+      "argv": [
+        "/Users/mike/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean",
+        "-j2",
+        "-o",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/AuditFull.olean",
+        "-i",
+        "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z/AuditFull.ilean",
+        "AuditFull.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 2.598085999999995,
+      "log": "all-axioms.log",
+      "sha256": "719f9f9db7f65a8d799f9c1bd90f7703d395b93e2a37d3377a3a957c2fedb503"
+    }
+  ],
+  "expected_mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "started_utc": "2026-11-13T13:24:07.332605+00:00",
+  "source_hashes": {
+    "Hohmann_Transfer_H2_Core_All.lean": "20386760b8ed1b8a0b101d26940764d255402091223e57d1d69d33de3d1d8ebe",
+    "HohmannTransfer.lean": "1d65cc61455c9ba5cf227f9fc6a6b41305b0906ad39c6491ce08361cf9fbfa46",
+    "HohmannOptimality.lean": "79d98b71766e5894e890ad00dcd210389a28bcb799e27715f3a0ad0d130b2d17",
+    "HohmannOptimalityPhysical.lean": "55e5d52300d2a5dddb2882944964d0261c1a83c0763a26b7f31a5a76e656bb5d",
+    "ApiProbe.lean": "5f80fe7b305c9ffb2a641496052e86dc0e3db0ab0afa4512b973a7938c3cf893",
+    "AuditFull.lean": "00b5c51bc420d207b919ce0a29450947baf2dfd139118a4c08509c67b56f52cf",
+    "Audit.lean": "51526a742b98f2c14464fce8814284cc079db1764c8943bfb111d57e18a0d930",
+    "Hohmann_Transfer_H2_All.lean": "757a2083c07dba3117bf825c08bb0fa3c9cf803adbb5e12e6e35c01c5eb7bf0f",
+    "Examples.lean": "ea4f465db5d4fe24bd280e5ac675aa3a6494828c1ba9162f2521d4bec8128f37",
+    "AuditPhysical.lean": "0d63c5243c32621443627465b9929000d0904d3f84d720ac0b6dec8e3d887ac9",
+    "HohmannTransfer/Impulses.lean": "c8676329274823dd54d8ad08312d81cd317f712f2c85c0842ada7c586f9de3ea",
+    "HohmannTransfer/PublicStatement.lean": "fe56c5febfb8ac06fc342a52e00c2772120aeaff8f1ee15f0000fe72538cff9e",
+    "HohmannTransfer/KeplerClock.lean": "75c18c3cde221cc972970c5a9d9f4e2d88a6f5ab77682f9e5829bfca1a8e1016",
+    "HohmannTransfer/Endpoints.lean": "6de1d74b30e6b618ec3d8e11702fcf374a507a36e5c5434f6e8b36718ff703ee",
+    "HohmannTransfer/Differentiation.lean": "320e851121a8a3786971b85922f479002ae919f3b8e1cd65710d53f574370f2b",
+    "HohmannTransfer/Geometry.lean": "aad0e94f0436ba184646d19238c6b10f91192ce0148ad75352ca01b3d6082b2f",
+    "HohmannTransfer/Plane.lean": "442d7f5f1a087544c10621331eee64e268ebb9a4e094e960b6aa6b33b6f4419d",
+    "HohmannTransfer/Parameters.lean": "4f4591f3e88278262884645226f3806a770539833c3c792e5c41dbb241360180",
+    "HohmannTransfer/Dynamics.lean": "53b9be63c26d90aa2e9c924b697659217cf805b24d9dbf2a68c35730cf956d68",
+    "HohmannTransfer/Circular.lean": "b6f4b353e023a20599f23bf871ac55ea3d571d4047d03d36d0f4cc8576405e89",
+    "HohmannTransfer/Transfer.lean": "db901ab9978cf67e7926ccc5a7b64cc9fbd397a34e4baceba9d4fd1fef2ba2d0",
+    "HohmannTransfer/Invariants.lean": "731795fce1874725a076d2d6f2af7006e90a0aabc98f28243360d013322b11bc",
+    "HohmannOptimality/BiellipticWitness.lean": "e140e5f857bf01d30ecb03d497597cec327e3be3fb261d7dc1d3610c05ddd09d",
+    "HohmannOptimality/Bielliptic.lean": "c90ad714ef842475dd0131e904920378dd51f406075d1cc8eca1581c105fdbb0",
+    "HohmannOptimality/PlanarState.lean": "3d7b91090569cd82106c4a8eb9382fba0755d801c0a85588354e3eddf10f8830",
+    "HohmannOptimality/PublicStatement.lean": "be48fa09931ec0f4e7b4f0da84749c1dfe40cbc5cdff62cf6103f368964d07d3",
+    "HohmannOptimality/KeplerConservation.lean": "923545084a4778035e90fdbe146677d59f0132ed6fcb40aece0e4f8e229e5469",
+    "HohmannOptimality/H1Bridge.lean": "680ce2a0ce1b1523cb160d38dcc2c97d13b0c8ad3d9be704bfbef392deeeb7ad",
+    "HohmannOptimality/EndpointBounds.lean": "838f4df296ca9e56bb36b2e48e03ed8f04d271e5732032531eeae6eff648df0e",
+    "HohmannOptimality/Shape.lean": "0cb2b511fbc5b064a30ab23b6f72dc9897978e2976bfd38ee75c7d83e2fea1d3",
+    "HohmannOptimality/EndpointOptimality.lean": "b892ee034444bcc03851b89013dc013d29fba74f70ff23388123bb22647c61e4",
+    "HohmannOptimality/PhysicalUnits.lean": "7c3235033c8a3fb673dde0450738d61172baa60d1b976dbcfabc680b25612388",
+    "HohmannOptimality/Fuel.lean": "d1ab26592e33fe17617b43f4cc37f051a1d71d0dffae7e959bf1f58de99d6bb3"
+  },
+  "dependency_pins": {
+    "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+    "plausible": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+    "LeanSearchClient": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+    "importGraph": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+    "proofwidgets": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+    "aesop": "4a174c490d8707121c4a9290800489f105d85e07",
+    "Qq": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+    "batteries": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+    "Cli": "c24fe6078c630e89b489bffe59b3e20ac30d12c8"
+  },
+  "physlib_reference_commit": "adccea9195c7c347a5f8cde1ddf6874f89ea6a9a",
+  "mathlib_root": "/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/mathlib",
+  "lean_path": "/Users/mike/Documents/ChatGPT/Zariski Cancellation/Hohmann_GitHub_Release/lean435/.build-local/20261113T132407332235Z:/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/mathlib/.lake/build/lib/lean:/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/plausible/.lake/build/lib/lean:/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/importGraph/.lake/build/lib/lean:/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/aesop/.lake/build/lib/lean:/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/Qq/.lake/build/lib/lean:/Users/mike/Documents/Codex/2026-11-13/lean/work/physlib/.lake/packages/batteries/.lake/build/lib/lean",
+  "finished_utc": "2026-11-13T13:25:35.645282+00:00",
+  "source_hashes_after": {
+    "Hohmann_Transfer_H2_Core_All.lean": "20386760b8ed1b8a0b101d26940764d255402091223e57d1d69d33de3d1d8ebe",
+    "HohmannTransfer.lean": "1d65cc61455c9ba5cf227f9fc6a6b41305b0906ad39c6491ce08361cf9fbfa46",
+    "HohmannOptimality.lean": "79d98b71766e5894e890ad00dcd210389a28bcb799e27715f3a0ad0d130b2d17",
+    "HohmannOptimalityPhysical.lean": "55e5d52300d2a5dddb2882944964d0261c1a83c0763a26b7f31a5a76e656bb5d",
+    "ApiProbe.lean": "5f80fe7b305c9ffb2a641496052e86dc0e3db0ab0afa4512b973a7938c3cf893",
+    "AuditFull.lean": "00b5c51bc420d207b919ce0a29450947baf2dfd139118a4c08509c67b56f52cf",
+    "Audit.lean": "51526a742b98f2c14464fce8814284cc079db1764c8943bfb111d57e18a0d930",
+    "Hohmann_Transfer_H2_All.lean": "757a2083c07dba3117bf825c08bb0fa3c9cf803adbb5e12e6e35c01c5eb7bf0f",
+    "Examples.lean": "ea4f465db5d4fe24bd280e5ac675aa3a6494828c1ba9162f2521d4bec8128f37",
+    "AuditPhysical.lean": "0d63c5243c32621443627465b9929000d0904d3f84d720ac0b6dec8e3d887ac9",
+    "HohmannTransfer/Impulses.lean": "c8676329274823dd54d8ad08312d81cd317f712f2c85c0842ada7c586f9de3ea",
+    "HohmannTransfer/PublicStatement.lean": "fe56c5febfb8ac06fc342a52e00c2772120aeaff8f1ee15f0000fe72538cff9e",
+    "HohmannTransfer/KeplerClock.lean": "75c18c3cde221cc972970c5a9d9f4e2d88a6f5ab77682f9e5829bfca1a8e1016",
+    "HohmannTransfer/Endpoints.lean": "6de1d74b30e6b618ec3d8e11702fcf374a507a36e5c5434f6e8b36718ff703ee",
+    "HohmannTransfer/Differentiation.lean": "320e851121a8a3786971b85922f479002ae919f3b8e1cd65710d53f574370f2b",
+    "HohmannTransfer/Geometry.lean": "aad0e94f0436ba184646d19238c6b10f91192ce0148ad75352ca01b3d6082b2f",
+    "HohmannTransfer/Plane.lean": "442d7f5f1a087544c10621331eee64e268ebb9a4e094e960b6aa6b33b6f4419d",
+    "HohmannTransfer/Parameters.lean": "4f4591f3e88278262884645226f3806a770539833c3c792e5c41dbb241360180",
+    "HohmannTransfer/Dynamics.lean": "53b9be63c26d90aa2e9c924b697659217cf805b24d9dbf2a68c35730cf956d68",
+    "HohmannTransfer/Circular.lean": "b6f4b353e023a20599f23bf871ac55ea3d571d4047d03d36d0f4cc8576405e89",
+    "HohmannTransfer/Transfer.lean": "db901ab9978cf67e7926ccc5a7b64cc9fbd397a34e4baceba9d4fd1fef2ba2d0",
+    "HohmannTransfer/Invariants.lean": "731795fce1874725a076d2d6f2af7006e90a0aabc98f28243360d013322b11bc",
+    "HohmannOptimality/BiellipticWitness.lean": "e140e5f857bf01d30ecb03d497597cec327e3be3fb261d7dc1d3610c05ddd09d",
+    "HohmannOptimality/Bielliptic.lean": "c90ad714ef842475dd0131e904920378dd51f406075d1cc8eca1581c105fdbb0",
+    "HohmannOptimality/PlanarState.lean": "3d7b91090569cd82106c4a8eb9382fba0755d801c0a85588354e3eddf10f8830",
+    "HohmannOptimality/PublicStatement.lean": "be48fa09931ec0f4e7b4f0da84749c1dfe40cbc5cdff62cf6103f368964d07d3",
+    "HohmannOptimality/KeplerConservation.lean": "923545084a4778035e90fdbe146677d59f0132ed6fcb40aece0e4f8e229e5469",
+    "HohmannOptimality/H1Bridge.lean": "680ce2a0ce1b1523cb160d38dcc2c97d13b0c8ad3d9be704bfbef392deeeb7ad",
+    "HohmannOptimality/EndpointBounds.lean": "838f4df296ca9e56bb36b2e48e03ed8f04d271e5732032531eeae6eff648df0e",
+    "HohmannOptimality/Shape.lean": "0cb2b511fbc5b064a30ab23b6f72dc9897978e2976bfd38ee75c7d83e2fea1d3",
+    "HohmannOptimality/EndpointOptimality.lean": "b892ee034444bcc03851b89013dc013d29fba74f70ff23388123bb22647c61e4",
+    "HohmannOptimality/PhysicalUnits.lean": "7c3235033c8a3fb673dde0450738d61172baa60d1b976dbcfabc680b25612388",
+    "HohmannOptimality/Fuel.lean": "d1ab26592e33fe17617b43f4cc37f051a1d71d0dffae7e959bf1f58de99d6bb3"
+  }
+}

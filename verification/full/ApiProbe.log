@@ -1,0 +1,26 @@
+Real.sq_sqrt {x : ℝ} (h : 0 ≤ x) : √x ^ 2 = x
+Real.sqrt_nonneg (x : ℝ) : 0 ≤ √x
+Real.sqrt_pos {x : ℝ} : 0 < √x ↔ 0 < x
+Real.exp_le_exp {x y : ℝ} : Real.exp x ≤ Real.exp y ↔ x ≤ y
+Real.exp_lt_exp {x y : ℝ} : Real.exp x < Real.exp y ↔ x < y
+Real.exp_add (x y : ℝ) : Real.exp (x + y) = Real.exp x * Real.exp y
+HasDerivAt.sqrt {f : ℝ → ℝ} {f' x : ℝ} (hf : HasDerivAt f f' x) (hx : f x ≠ 0) :
+  HasDerivAt (fun y => √(f y)) (f' / (2 * √(f x))) x
+HasDerivAt.pow.{u_1, u_2} {𝕜 : Type u_1} {𝔸 : Type u_2} [NontriviallyNormedField 𝕜] [NormedCommRing 𝔸]
+  [NormedAlgebra 𝕜 𝔸] {f : 𝕜 → 𝔸} {f' : 𝔸} {x : 𝕜} (h : HasDerivAt f f' x) (n : ℕ) :
+  HasDerivAt (f ^ n) (↑n * f x ^ (n - 1) * f') x
+HasDerivAt.div.{u, u_1} {𝕜 : Type u} [NontriviallyNormedField 𝕜] {x : 𝕜} {𝕜' : Type u_1} [NontriviallyNormedField 𝕜']
+  [NormedAlgebra 𝕜 𝕜'] {c d : 𝕜 → 𝕜'} {c' d' : 𝕜'} (hc : HasDerivAt c c' x) (hd : HasDerivAt d d' x) (hx : d x ≠ 0) :
+  HasDerivAt (c / d) ((c' * d x - c x * d') / d x ^ 2) x
+HasDerivAt.add_const.{u, v} {𝕜 : Type u} [NontriviallyNormedField 𝕜] {F : Type v} [NormedAddCommGroup F]
+  [NormedSpace 𝕜 F] {f : 𝕜 → F} {f' : F} {x : 𝕜} (c : F) : HasDerivAt f f' x → HasDerivAt (fun x => f x + c) f' x
+constant_of_has_deriv_right_zero.{u_1} {E : Type u_1} [NormedAddCommGroup E] [NormedSpace ℝ E] {f : ℝ → E} {a b : ℝ}
+  (hcont : ContinuousOn f (Set.Icc a b)) (hderiv : ∀ x ∈ Set.Ico a b, HasDerivWithinAt f 0 (Set.Ici x) x) (x : ℝ) :
+  x ∈ Set.Icc a b → f x = f a
+div_le_div_iff_of_pos_right.{u_3} {G₀ : Type u_3} [GroupWithZero G₀] [PartialOrder G₀] [MulPosReflectLT G₀] {a b c : G₀}
+  (hc : 0 < c) : a / c ≤ b / c ↔ a ≤ b
+div_lt_div_iff_of_pos_right.{u_3} {G₀ : Type u_3} [GroupWithZero G₀] [PartialOrder G₀] [MulPosReflectLT G₀] {a b c : G₀}
+  (hc : 0 < c) : a / c < b / c ↔ a < b
+lt_or_gt_of_ne.{u_1} {α : Type u_1} [LinearOrder α] {a b : α} (h : a ≠ b) : a < b ∨ b < a
+abs_sub_comm.{u_1} {α : Type u_1} [Lattice α] [AddGroup α] (a b : α) : |a - b| = |b - a|
+Complex.normSq_eq_norm_sq (z : ℂ) : Complex.normSq z = ‖z‖ ^ 2

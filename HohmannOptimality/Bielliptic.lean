@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. A finite three-burn competitor, not an infinite limit. -/
+/-
+Authors: Qianli Ma
+A finite three-burn competitor, not an infinite limit. -/
 import HohmannOptimality.Shape
 
 noncomputable section

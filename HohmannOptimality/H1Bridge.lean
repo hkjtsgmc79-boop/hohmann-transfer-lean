@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. H1 sources are copied byte-for-byte, not re-certified.
+/-
+Authors: Qianli Ma
+The explicit H1 orbit attains the H2 lower bound.
 This optional layer ties the independent lower bound to H1's physical witness.
 -/
 import HohmannOptimality.PublicStatement
@@ -78,7 +80,8 @@ theorem h1_global_two_impulse_minimum (p : HohmannTransfer.Parameters) :
   · rw [h1_bound_eq_totalDeltaV, HohmannTransfer.totalDeltaV_eq_sum_norms]
   · intro a h₀ h₁
     have h := KeplerArc.newton_arc_lower_bound (unitsOfH1 p) a h₀ h₁
-    simpa only [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] using h
+    rw [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] at h
+    exact h
 
 
 /-- The explicit H1 coast is a member of the same class used for the lower bound. -/

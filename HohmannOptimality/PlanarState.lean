@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. Euclidean, NOT a product-type sup-norm. -/
+/-
+Authors: Qianli Ma
+Euclidean, NOT a product-type sup-norm. -/
 import HohmannOptimality.PhysicalUnits
 
 noncomputable section

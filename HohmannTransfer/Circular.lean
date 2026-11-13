@@ -1,9 +1,7 @@
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 import HohmannTransfer.Parameters
 import HohmannTransfer.Plane
@@ -54,7 +52,8 @@ lemma hasDerivAt_circularPosition (mu R phase t : ℝ) :
       (circularRate mu R) t := by
     simpa using ((hasDerivAt_id t).const_mul (circularRate mu R)).add_const phase
   convert pack_deriv (ha.cos.const_mul R) (ha.sin.const_mul R) using 1
-  apply Complex.ext <;> simp [circularVelocity, pack] <;> ring
+  · rfl
+  · apply Complex.ext <;> simp [circularVelocity, pack] <;> ring
 lemma hasDerivAt_circularVelocity (mu R phase t : ℝ) :
     HasDerivAt (circularVelocity mu R phase)
       (-(circularRate mu R)^2 • circularPosition mu R phase t) t := by
@@ -63,8 +62,9 @@ lemma hasDerivAt_circularVelocity (mu R phase t : ℝ) :
     simpa using ((hasDerivAt_id t).const_mul (circularRate mu R)).add_const phase
   convert pack_deriv (ha.sin.const_mul (-R*circularRate mu R))
     (ha.cos.const_mul (R*circularRate mu R)) using 1
-  rw [circularPosition, pack_smul]
-  apply Complex.ext <;> simp only [pack_re, pack_im] <;> ring
+  · rfl
+  · rw [circularPosition, pack_smul]
+    apply Complex.ext <;> simp only [pack_re, pack_im] <;> ring
 lemma circular_newton {mu R : ℝ} (hm : 0 < mu) (hR : 0 < R)
     (phase t : ℝ) :
     deriv (deriv (circularPosition mu R phase)) t =

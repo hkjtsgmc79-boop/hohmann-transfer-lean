@@ -1,21 +1,21 @@
-H2 NEW SOURCE — UNCOMPILED CANDIDATES (H1 baseline included separately)
+HOHMANN H2 MODULAR SOURCE EXPORT
 
 ========================================================================
 FILE: lean-toolchain
 ========================================================================
-leanprover/lean4:v4.30.0
+leanprover/lean4:v4.35.0
 
 ========================================================================
 FILE: lakefile.toml
 ========================================================================
 name = "hohmann_transfer_h2"
-version = "0.2.0"
+version = "0.2.1"
 defaultTargets = ["HohmannOptimality"]
 
 [[require]]
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4.git"
-rev = "c5ea00351c28e24afc9f0f84379aa41082b1188f"
+rev = "56a005855ea17e0b0958f73ec801ae140b0a1679"
 
 [[lean_lib]]
 name = "HohmannOptimality"
@@ -29,13 +29,13 @@ name = "HohmannOptimalityPhysical"
 ========================================================================
 FILE: HohmannOptimality.lean
 ========================================================================
--- H2 standalone optimality development. All sources remain uncompiled candidates.
+-- H2: global two-impulse optimality and a finite three-impulse cost comparison.
 import HohmannOptimality.PublicStatement
 
 ========================================================================
 FILE: HohmannOptimalityPhysical.lean
 ========================================================================
--- Includes H1's uncompiled dynamical construction; validate independently of core.
+-- H1 and H2: physical attainment and a three-impulse trajectory witness.
 import HohmannOptimality.H1Bridge
 import HohmannOptimality.BiellipticWitness
 
@@ -44,7 +44,7 @@ FILE: HohmannOptimality/Shape.lean
 ========================================================================
 /-
 Copyright (c) 2026 Chengyuan AI Lab. Released under Apache 2.0.
-H2: UNCOMPILED CANDIDATE. No kernel verification is claimed.
+Authors: Qianli Ma
 -/
 import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
@@ -141,7 +141,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/EndpointBounds.lean
 ========================================================================
-/- H2 uncompiled candidate. Algebraic global bounds, with no calculus/KKT. -/
+/-
+Authors: Qianli Ma
+Algebraic global bounds, with no calculus/KKT. -/
 import HohmannOptimality.Shape
 
 noncomputable section
@@ -248,7 +250,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/EndpointOptimality.lean
 ========================================================================
-/- H2 uncompiled candidate. Endpoints allow radial velocity and signed momentum. -/
+/-
+Authors: Qianli Ma
+Endpoints allow radial velocity and signed momentum. -/
 import HohmannOptimality.EndpointBounds
 
 noncomputable section
@@ -376,7 +380,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/PhysicalUnits.lean
 ========================================================================
-/- H2 uncompiled candidate. Restore arbitrary positive μ and length scale. -/
+/-
+Authors: Qianli Ma
+Restore arbitrary positive μ and length scale. -/
 import HohmannOptimality.EndpointOptimality
 
 noncomputable section
@@ -496,7 +502,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/PlanarState.lean
 ========================================================================
-/- H2 uncompiled candidate. Euclidean, NOT a product-type sup-norm. -/
+/-
+Authors: Qianli Ma
+Euclidean, NOT a product-type sup-norm. -/
 import HohmannOptimality.PhysicalUnits
 
 noncomputable section
@@ -546,7 +554,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/KeplerConservation.lean
 ========================================================================
-/- H2 uncompiled candidate. Conservation is DERIVED from genuine derivatives.
+/-
+Authors: Qianli Ma
+Conservation is DERIVED from genuine derivatives.
 Only the smooth coast interval is modeled; impulses are endpoint velocity jumps.
 -/
 import HohmannOptimality.PlanarState
@@ -590,15 +600,18 @@ lemma radius_deriv {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁
     exact (lt_irrefl 0) hr
   have hd := (((a.dx t ht).pow 2).add ((a.dy t ht).pow 2)).sqrt harg
   convert hd using 1
-  dsimp [state, PlanarState.radius]
-  field_simp [ne_of_gt hr]
+  · rfl
+  · simp only [state, PlanarState.radius, Pi.add_apply, Pi.pow_apply, Nat.reduceSub,
+      pow_one, Nat.cast_ofNat]
+    field_simp [ne_of_gt hr]
 
 lemma angular_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
     HasDerivAt (fun u => (a.state u).angular) 0 t := by
   have hd := ((a.dx t ht).mul (a.dvy t ht)).sub ((a.dy t ht).mul (a.dvx t ht))
   convert hd using 1
-  field_simp [ne_of_gt (a.radius_pos t ht)]
-  ring
+  · rfl
+  · field_simp [ne_of_gt (a.radius_pos t ht)]
+    ring
 
 lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
     HasDerivAt (fun u => (a.state u).energy mu) 0 t := by
@@ -606,9 +619,10 @@ lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a
   have hk := ((a.dvx t ht).pow 2).add ((a.dvy t ht).pow 2)
   have hp := (hasDerivAt_const t (2*mu)).div (a.radius_deriv ht) hr
   convert hk.sub hp using 1
-  dsimp [state, PlanarState.radius] at hr ⊢
-  field_simp [hr]
-  ring
+  · rfl
+  · dsimp [state, PlanarState.radius] at hr ⊢
+    field_simp [hr]
+    ring
 
 lemma equal_endpoints_of_zero_deriv {f : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b)
     (hd : ∀ t ∈ Icc a b, HasDerivAt f 0 t) : f b=f a := by
@@ -687,7 +701,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/Bielliptic.lean
 ========================================================================
-/- H2 uncompiled candidate. A finite three-burn competitor, not an infinite limit. -/
+/-
+Authors: Qianli Ma
+A finite three-burn competitor, not an infinite limit. -/
 import HohmannOptimality.Shape
 
 noncomputable section
@@ -820,7 +836,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/Fuel.lean
 ========================================================================
-/- H2 uncompiled candidate. Delta-v is not generally identical to propellant.
+/-
+Authors: Qianli Ma
+Delta-v is not generally identical to propellant.
 This corollary uses one ideal stage, fixed exhaust speed, same initial mass,
 no staging/dry-mass changes/refuelling and no other propellant expenditure.
 -/
@@ -869,7 +887,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/PublicStatement.lean
 ========================================================================
-/- H2 uncompiled candidate. Freeze theorem headers before local repair. -/
+/-
+Authors: Qianli Ma
+Public two-impulse optimality and finite cost comparison. -/
 import HohmannOptimality.Fuel
 
 noncomputable section
@@ -905,7 +925,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/H1Bridge.lean
 ========================================================================
-/- H2 uncompiled candidate. H1 sources are copied byte-for-byte, not re-certified.
+/-
+Authors: Qianli Ma
+The explicit H1 orbit attains the H2 lower bound.
 This optional layer ties the independent lower bound to H1's physical witness.
 -/
 import HohmannOptimality.PublicStatement
@@ -985,7 +1007,8 @@ theorem h1_global_two_impulse_minimum (p : HohmannTransfer.Parameters) :
   · rw [h1_bound_eq_totalDeltaV, HohmannTransfer.totalDeltaV_eq_sum_norms]
   · intro a h₀ h₁
     have h := KeplerArc.newton_arc_lower_bound (unitsOfH1 p) a h₀ h₁
-    simpa only [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] using h
+    rw [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] at h
+    exact h
 
 
 /-- The explicit H1 coast is a member of the same class used for the lower bound. -/
@@ -1084,7 +1107,9 @@ end HohmannOptimality
 ========================================================================
 FILE: HohmannOptimality/BiellipticWitness.lean
 ========================================================================
-/- H2 uncompiled candidate. Two finite actual Kepler arcs + three velocity jumps.
+/-
+Authors: Qianli Ma
+Two finite actual Kepler arcs + three velocity jumps.
 The second ellipse is followed from apoapsis to periapsis by a time shift.
 -/
 import HohmannOptimality.H1Bridge
@@ -1110,13 +1135,15 @@ lemma secondPosition_deriv (t : ℝ) : HasDerivAt secondPosition (secondVelocity
   have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
     (hasDerivAt_id t).add_const second.transferTime
   have h := (hasDerivAt_position second (t+second.transferTime)).scomp t hshift
-  simpa [secondPosition, secondVelocity, Function.comp_def] using h
+  rw [one_smul] at h
+  exact h
 lemma secondVelocity_deriv (t : ℝ) :
     HasDerivAt secondVelocity (-(1/‖secondPosition t‖^3) • secondPosition t) t := by
   have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
     (hasDerivAt_id t).add_const second.transferTime
   have h := (hasDerivAt_velocity_newton second (t+second.transferTime)).scomp t hshift
-  simpa [secondPosition, secondVelocity, gravity, Function.comp_def, show second.mu = 1 from rfl] using h
+  rw [one_smul] at h
+  exact h
 lemma second_newton (t : ℝ) :
     deriv (deriv secondPosition) t = -(1/‖secondPosition t‖^3) • secondPosition t := by
   have hd : deriv secondPosition=secondVelocity := funext (fun s => (secondPosition_deriv s).deriv)

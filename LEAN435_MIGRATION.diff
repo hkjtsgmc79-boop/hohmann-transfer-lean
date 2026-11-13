@@ -1,0 +1,279 @@
+--- lean430/HohmannTransfer/Circular.lean
++++ lean435/HohmannTransfer/Circular.lean
+@@ -54,7 +54,8 @@
+       (circularRate mu R) t := by
+     simpa using ((hasDerivAt_id t).const_mul (circularRate mu R)).add_const phase
+   convert pack_deriv (ha.cos.const_mul R) (ha.sin.const_mul R) using 1
+-  apply Complex.ext <;> simp [circularVelocity, pack] <;> ring
++  · rfl
++  · apply Complex.ext <;> simp [circularVelocity, pack] <;> ring
+ lemma hasDerivAt_circularVelocity (mu R phase t : ℝ) :
+     HasDerivAt (circularVelocity mu R phase)
+       (-(circularRate mu R)^2 • circularPosition mu R phase t) t := by
+@@ -63,8 +64,9 @@
+     simpa using ((hasDerivAt_id t).const_mul (circularRate mu R)).add_const phase
+   convert pack_deriv (ha.sin.const_mul (-R*circularRate mu R))
+     (ha.cos.const_mul (R*circularRate mu R)) using 1
+-  rw [circularPosition, pack_smul]
+-  apply Complex.ext <;> simp only [pack_re, pack_im] <;> ring
++  · rfl
++  · rw [circularPosition, pack_smul]
++    apply Complex.ext <;> simp only [pack_re, pack_im] <;> ring
+ lemma circular_newton {mu R : ℝ} (hm : 0 < mu) (hR : 0 < R)
+     (phase t : ℝ) :
+     deriv (deriv (circularPosition mu R phase)) t =
+--- lean430/HohmannTransfer/Differentiation.lean
++++ lean435/HohmannTransfer/Differentiation.lean
+@@ -20,34 +20,37 @@
+ lemma hasDerivAt_D (p : Parameters) (u : ℝ) :
+     HasDerivAt (D p) (p.e*Real.sin u) u := by
+   convert (hasDerivAt_const u (1:ℝ)).sub
+-    ((Real.hasDerivAt_cos u).const_mul p.e) using 1 <;> simp
++    ((Real.hasDerivAt_cos u).const_mul p.e) using 1 <;> first | rfl | simp
+ lemma hasDerivAt_position (p : Parameters) (t : ℝ) :
+     HasDerivAt (position p) (velocity p t) t := by
+   have hu := hasDerivAt_anomaly p t
+   have hx := (hu.cos.sub_const p.e).const_mul p.a
+   have hy := hu.sin.const_mul p.b
+   convert pack_deriv hx hy using 1
+-  apply Complex.ext <;>
+-    simp [velocity, velocityAtAnomaly, pack] <;> ring
++  · rfl
++  · apply Complex.ext <;>
++      simp [velocity, velocityAtAnomaly, pack] <;> ring
+ lemma hasDerivAt_velocityAtAnomaly_x (p : Parameters) (u : ℝ) :
+     HasDerivAt (fun s => (velocityAtAnomaly p s).re)
+       (-p.a*p.n*(Real.cos u-p.e)/(D p u)^2) u := by
+   have hnum := (Real.hasDerivAt_sin u).const_mul (-p.a*p.n)
+   have h := hnum.div (hasDerivAt_D p u) (D_ne p u)
+   convert h using 1
+-  apply (div_left_inj' (pow_ne_zero 2 (D_ne p u))).2
+-  unfold D
+-  nlinarith [congrArg (fun x : ℝ => p.a*p.n*p.e*x)
+-    (Real.sin_sq_add_cos_sq u)]
++  · rfl
++  · apply (div_left_inj' (pow_ne_zero 2 (D_ne p u))).2
++    unfold D
++    nlinarith [congrArg (fun x : ℝ => p.a*p.n*p.e*x)
++      (Real.sin_sq_add_cos_sq u)]
+ lemma hasDerivAt_velocityAtAnomaly_y (p : Parameters) (u : ℝ) :
+     HasDerivAt (fun s => (velocityAtAnomaly p s).im)
+       (-p.b*p.n*Real.sin u/(D p u)^2) u := by
+   have hnum := (Real.hasDerivAt_cos u).const_mul (p.b*p.n)
+   have h := hnum.div (hasDerivAt_D p u) (D_ne p u)
+   convert h using 1
+-  apply (div_left_inj' (pow_ne_zero 2 (D_ne p u))).2
+-  unfold D
+-  ring
++  · rfl
++  · apply (div_left_inj' (pow_ne_zero 2 (D_ne p u))).2
++    unfold D
++    ring
+ lemma hasDerivAt_velocity (p : Parameters) (t : ℝ) :
+     HasDerivAt (velocity p)
+       (-(p.n^2/(D p (anomaly p t))^3) • position p t) t := by
+@@ -56,10 +59,11 @@
+   have hy := (hasDerivAt_velocityAtAnomaly_y p (anomaly p t)).comp t
+     (hasDerivAt_anomaly p t)
+   convert pack_deriv hx hy using 1
+-  rw [position, ellipse, pack_smul]
+-  apply Complex.ext <;>
+-    simp only [pack_re, pack_im] <;>
+-    field_simp [D_ne p (anomaly p t)] <;> ring
++  · rfl
++  · rw [position, ellipse, pack_smul]
++    apply Complex.ext <;>
++      simp only [pack_re, pack_im] <;>
++      field_simp [D_ne p (anomaly p t)] <;> ring
+ lemma deriv_position (p : Parameters) : deriv (position p) = velocity p := by
+   funext t
+   exact (hasDerivAt_position p t).deriv
+--- lean430/HohmannTransfer/KeplerClock.lean
++++ lean435/HohmannTransfer/KeplerClock.lean
+@@ -19,8 +19,7 @@
+ 
+ lemma hasDerivAt_clock (p : Parameters) (u : ℝ) :
+     HasDerivAt (clock p) (D p u / p.n) u := by
+-  simpa [clock, D] using
+-    ((hasDerivAt_id u).sub ((Real.hasDerivAt_sin u).const_mul p.e)).div_const p.n
++  exact ((hasDerivAt_id u).sub ((Real.hasDerivAt_sin u).const_mul p.e)).div_const p.n
+ lemma clock_continuous (p : Parameters) : Continuous (clock p) := by
+   exact continuous_iff_continuousAt.2 (fun u => (hasDerivAt_clock p u).continuousAt)
+ lemma clock_strictMono (p : Parameters) : StrictMono (clock p) := by
+--- lean430/HohmannOptimality/BiellipticWitness.lean
++++ lean435/HohmannOptimality/BiellipticWitness.lean
+@@ -24,13 +24,15 @@
+   have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
+     (hasDerivAt_id t).add_const second.transferTime
+   have h := (hasDerivAt_position second (t+second.transferTime)).scomp t hshift
+-  simpa [secondPosition, secondVelocity, Function.comp_def] using h
++  rw [one_smul] at h
++  exact h
+ lemma secondVelocity_deriv (t : ℝ) :
+     HasDerivAt secondVelocity (-(1/‖secondPosition t‖^3) • secondPosition t) t := by
+   have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
+     (hasDerivAt_id t).add_const second.transferTime
+   have h := (hasDerivAt_velocity_newton second (t+second.transferTime)).scomp t hshift
+-  simpa [secondPosition, secondVelocity, gravity, Function.comp_def, show second.mu = 1 from rfl] using h
++  rw [one_smul] at h
++  exact h
+ lemma second_newton (t : ℝ) :
+     deriv (deriv secondPosition) t = -(1/‖secondPosition t‖^3) • secondPosition t := by
+   have hd : deriv secondPosition=secondVelocity := funext (fun s => (secondPosition_deriv s).deriv)
+--- lean430/HohmannOptimality/H1Bridge.lean
++++ lean435/HohmannOptimality/H1Bridge.lean
+@@ -78,7 +78,8 @@
+   · rw [h1_bound_eq_totalDeltaV, HohmannTransfer.totalDeltaV_eq_sum_norms]
+   · intro a h₀ h₁
+     have h := KeplerArc.newton_arc_lower_bound (unitsOfH1 p) a h₀ h₁
+-    simpa only [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] using h
++    rw [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] at h
++    exact h
+ 
+ 
+ /-- The explicit H1 coast is a member of the same class used for the lower bound. -/
+--- lean430/HohmannOptimality/KeplerConservation.lean
++++ lean435/HohmannOptimality/KeplerConservation.lean
+@@ -42,15 +42,18 @@
+     exact (lt_irrefl 0) hr
+   have hd := (((a.dx t ht).pow 2).add ((a.dy t ht).pow 2)).sqrt harg
+   convert hd using 1
+-  dsimp [state, PlanarState.radius]
+-  field_simp [ne_of_gt hr]
++  · rfl
++  · simp only [state, PlanarState.radius, Pi.add_apply, Pi.pow_apply, Nat.reduceSub,
++      pow_one, Nat.cast_ofNat]
++    field_simp [ne_of_gt hr]
+ 
+ lemma angular_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
+     HasDerivAt (fun u => (a.state u).angular) 0 t := by
+   have hd := ((a.dx t ht).mul (a.dvy t ht)).sub ((a.dy t ht).mul (a.dvx t ht))
+   convert hd using 1
+-  field_simp [ne_of_gt (a.radius_pos t ht)]
+-  ring
++  · rfl
++  · field_simp [ne_of_gt (a.radius_pos t ht)]
++    ring
+ 
+ lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
+     HasDerivAt (fun u => (a.state u).energy mu) 0 t := by
+@@ -58,9 +61,10 @@
+   have hk := ((a.dvx t ht).pow 2).add ((a.dvy t ht).pow 2)
+   have hp := (hasDerivAt_const t (2*mu)).div (a.radius_deriv ht) hr
+   convert hk.sub hp using 1
+-  dsimp [state, PlanarState.radius] at hr ⊢
+-  field_simp [hr]
+-  ring
++  · rfl
++  · dsimp [state, PlanarState.radius] at hr ⊢
++    field_simp [hr]
++    ring
+ 
+ lemma equal_endpoints_of_zero_deriv {f : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b)
+     (hd : ∀ t ∈ Icc a b, HasDerivAt f 0 t) : f b=f a := by
+--- lean430/lean-toolchain
++++ lean435/lean-toolchain
+@@ -1 +1 @@
+-leanprover/lean4:v4.30.0
++leanprover/lean4:v4.35.0
+--- lean430/lakefile.toml
++++ lean435/lakefile.toml
+@@ -5,7 +5,7 @@
+ [[require]]
+ name = "mathlib"
+ git = "https://github.com/leanprover-community/mathlib4.git"
+-rev = "c5ea00351c28e24afc9f0f84379aa41082b1188f"
++rev = "56a005855ea17e0b0958f73ec801ae140b0a1679"
+ 
+ [[lean_lib]]
+ name = "HohmannOptimality"
+--- lean430/scripts/verify.py
++++ lean435/scripts/verify.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""Build H2 with existing Lean 4.30.0 + clean pinned Mathlib. No installation/network.
++"""Build H2 with existing Lean 4.35.0 + clean pinned Mathlib. No installation/network.
+ core: new optimality, dynamics-to-bounds, exact comparison; independent of H1.
+ full: also recompile all H1 modules and physical attainment/counterexample bridges.
+ """
+@@ -12,7 +12,8 @@
+ from build_support import (CORE_MODULES, BRIDGE_MODULES, H1_MODULES, generate_exports,
+                            inventory, parse_axioms, sha256, public_signatures, strip_comments_strings)
+ ROOT=Path(__file__).resolve().parents[1]
+-PIN='c5ea00351c28e24afc9f0f84379aa41082b1188f'
++LOCK=json.loads((ROOT/'dependency-lock.json').read_text())
++PIN=LOCK['mathlib_commit']
+ PUBLIC=['PublicStatement','H1Bridge','BiellipticWitness']
+ 
+ 
+@@ -21,8 +22,6 @@
+     parser.add_argument('scope',choices=['core','full'],nargs='?',default='core')
+     parser.add_argument('--lean',default=os.environ.get('LEAN_BIN'))
+     parser.add_argument('--mathlib-root',default=os.environ.get('MATHLIB_ROOT'))
+-    parser.add_argument('--cache-root', help='Separate, existing compiled Mathlib cache')
+-    parser.add_argument('--cache-receipt', help='Verification record of the restored cache')
+     parser.add_argument('--timeout',type=int,default=600)
+     args=parser.parse_args()
+     runid=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+@@ -71,11 +70,10 @@
+         if not lean:raise RuntimeError('BLOCKED: Lean executable not found; no Lean compilation ran.')
+         lean=str(Path(lean).expanduser().resolve())
+         code,text=command('lean-version',[lean,'--version'])
+-        if code or not re.search(r'\bversion\s+4\.30\.0(?:\s|,|\))',text):
+-            raise RuntimeError('BLOCKED: this branch expects Lean 4.30.0.')
++        if code or not re.search(r'\bversion\s+4\.35\.0(?:\s|,|\))',text):
++            raise RuntimeError('BLOCKED: this branch expects Lean 4.35.0.')
+         mr=Path(args.mathlib_root).expanduser().resolve() if args.mathlib_root else ROOT/'.lake/packages/mathlib'
+-        cache=Path(args.cache_root).expanduser().resolve() if args.cache_root else mr
+-        if not (cache/'.lake/build/lib/lean').is_dir():raise RuntimeError('BLOCKED: compiled Mathlib cache unavailable.')
++        if not (mr/'.lake/build/lib/lean').is_dir():raise RuntimeError('BLOCKED: compiled Mathlib cache unavailable.')
+         code,text=command('mathlib-commit',['git','-C',str(mr),'rev-parse','HEAD'])
+         if code or text.strip()!=PIN:raise RuntimeError('BLOCKED: Mathlib commit is not the pinned baseline.')
+         code,text=command('mathlib-status',['git','--no-optional-locks','-C',str(mr),'status','--porcelain','--untracked-files=no'])
+@@ -83,23 +81,31 @@
+         manifest=json.loads((mr/'lake-manifest.json').read_text())
+         pins={'mathlib': PIN, **{p['name']:p['rev'] for p in manifest['packages']}}
+         report['dependency_pins']=pins
+-        if args.cache_root:
+-            if not args.cache_receipt:
+-                raise RuntimeError('BLOCKED: restored cache requires a provenance receipt.')
+-            receipt=Path(args.cache_receipt).expanduser().resolve()
+-            recorded=json.loads(receipt.read_text())
+-            if recorded.get('status')!='FULL_PASS_LEAN_4_30_0' or recorded.get('dependency_lock',{}).get('packages')!=pins:
+-                raise RuntimeError('BLOCKED: cache provenance does not match dependency pins.')
+-            report['cache_receipt']={'path':str(receipt),'sha256':sha256(receipt)}
+-        paths=[build,cache/'.lake/build/lib/lean']
+-        for packages in (cache/'.lake/packages',cache.parent):
+-            paths.extend(sorted(p for p in packages.glob('*/.lake/build/lib/lean')
+-                                if p.parents[3].name in pins and p.parents[3].name!='mathlib'))
+-        report['cache_root']=str(cache)
++        if pins!=LOCK['packages']:
++            raise RuntimeError('BLOCKED: Mathlib manifest disagrees with the Physlib dependency pins.')
++        paths=[build,mr/'.lake/build/lib/lean']
++        # Lake checkouts place Mathlib and its dependencies side by side.
++        for name, rev in pins.items():
++            if name=='mathlib': continue
++            local=mr.parent/name
++            if not local.is_dir():
++                local=mr/'.lake/packages'/name
++            if not local.is_dir():
++                raise RuntimeError(f'BLOCKED: missing checkout of {name}.')
++            code,text=command(f'pin-{name}',['git','-C',str(local),'rev-parse','HEAD'])
++            if code or text.strip()!=rev:
++                raise RuntimeError(f'BLOCKED: {name} checkout differs from Physlib pin.')
++            code,text=command(f'status-{name}',['git','--no-optional-locks','-C',str(local),
++                                               'status','--porcelain','--untracked-files=no'])
++            if code or text.strip():
++                raise RuntimeError(f'BLOCKED: {name} checkout contains tracked changes.')
++            lib=local/'.lake/build/lib/lean'
++            if lib.is_dir(): paths.append(lib)
++        report['physlib_reference_commit']=LOCK['physlib_reference_commit']
+         lake=str(Path(lean).with_name('lake'))
+         code,text=command('lake-version',[lake,'--version'])
+-        if code or 'Lean version 4.30.0' not in text:
+-            raise RuntimeError('BLOCKED: expected Lake bundled with Lean 4.30.0.')
++        if code or 'Lean version 4.35.0' not in text:
++            raise RuntimeError('BLOCKED: expected Lake bundled with Lean 4.35.0.')
+         env['LEAN_PATH']=os.pathsep.join(map(str,paths))
+         report.update(mathlib_root=str(mr),lean_path=env['LEAN_PATH'])
+         seq=[('ApiProbe','ApiProbe.lean')]

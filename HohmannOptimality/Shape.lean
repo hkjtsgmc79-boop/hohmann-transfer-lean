@@ -1,6 +1,6 @@
 /-
 Copyright (c) 2026 Chengyuan AI Lab. Released under Apache 2.0.
-H2: UNCOMPILED CANDIDATE. No kernel verification is claimed.
+Authors: Qianli Ma
 -/
 import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.Deriv.MeanValue

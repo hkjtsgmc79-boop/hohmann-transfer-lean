@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build H2 with existing Lean 4.30.0 + clean pinned Mathlib. No installation/network.
+"""Build H2 with existing Lean 4.35.0 + clean pinned Mathlib. No installation/network.
 core: new optimality, dynamics-to-bounds, exact comparison; independent of H1.
 full: also recompile all H1 modules and physical attainment/counterexample bridges.
 """
@@ -12,7 +12,8 @@ import re, shutil, subprocess, sys, time, zipfile
 from build_support import (CORE_MODULES, BRIDGE_MODULES, H1_MODULES, generate_exports,
                            inventory, parse_axioms, sha256, public_signatures, strip_comments_strings)
 ROOT=Path(__file__).resolve().parents[1]
-PIN='c5ea00351c28e24afc9f0f84379aa41082b1188f'
+LOCK=json.loads((ROOT/'dependency-lock.json').read_text())
+PIN=LOCK['mathlib_commit']
 PUBLIC=['PublicStatement','H1Bridge','BiellipticWitness']
 
 
@@ -21,8 +22,6 @@ def main() -> int:
     parser.add_argument('scope',choices=['core','full'],nargs='?',default='core')
     parser.add_argument('--lean',default=os.environ.get('LEAN_BIN'))
     parser.add_argument('--mathlib-root',default=os.environ.get('MATHLIB_ROOT'))
-    parser.add_argument('--cache-root', help='Separate, existing compiled Mathlib cache')
-    parser.add_argument('--cache-receipt', help='Verification record of the restored cache')
     parser.add_argument('--timeout',type=int,default=600)
     args=parser.parse_args()
     runid=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
@@ -71,11 +70,10 @@ def main() -> int:
         if not lean:raise RuntimeError('BLOCKED: Lean executable not found; no Lean compilation ran.')
         lean=str(Path(lean).expanduser().resolve())
         code,text=command('lean-version',[lean,'--version'])
-        if code or not re.search(r'\bversion\s+4\.30\.0(?:\s|,|\))',text):
-            raise RuntimeError('BLOCKED: this branch expects Lean 4.30.0.')
+        if code or not re.search(r'\bversion\s+4\.35\.0(?:\s|,|\))',text):
+            raise RuntimeError('BLOCKED: this branch expects Lean 4.35.0.')
         mr=Path(args.mathlib_root).expanduser().resolve() if args.mathlib_root else ROOT/'.lake/packages/mathlib'
-        cache=Path(args.cache_root).expanduser().resolve() if args.cache_root else mr
-        if not (cache/'.lake/build/lib/lean').is_dir():raise RuntimeError('BLOCKED: compiled Mathlib cache unavailable.')
+        if not (mr/'.lake/build/lib/lean').is_dir():raise RuntimeError('BLOCKED: compiled Mathlib cache unavailable.')
         code,text=command('mathlib-commit',['git','-C',str(mr),'rev-parse','HEAD'])
         if code or text.strip()!=PIN:raise RuntimeError('BLOCKED: Mathlib commit is not the pinned baseline.')
         code,text=command('mathlib-status',['git','--no-optional-locks','-C',str(mr),'status','--porcelain','--untracked-files=no'])
@@ -83,23 +81,31 @@ def main() -> int:
         manifest=json.loads((mr/'lake-manifest.json').read_text())
         pins={'mathlib': PIN, **{p['name']:p['rev'] for p in manifest['packages']}}
         report['dependency_pins']=pins
-        if args.cache_root:
-            if not args.cache_receipt:
-                raise RuntimeError('BLOCKED: restored cache requires a provenance receipt.')
-            receipt=Path(args.cache_receipt).expanduser().resolve()
-            recorded=json.loads(receipt.read_text())
-            if recorded.get('status')!='FULL_PASS_LEAN_4_30_0' or recorded.get('dependency_lock',{}).get('packages')!=pins:
-                raise RuntimeError('BLOCKED: cache provenance does not match dependency pins.')
-            report['cache_receipt']={'path':str(receipt),'sha256':sha256(receipt)}
-        paths=[build,cache/'.lake/build/lib/lean']
-        for packages in (cache/'.lake/packages',cache.parent):
-            paths.extend(sorted(p for p in packages.glob('*/.lake/build/lib/lean')
-                                if p.parents[3].name in pins and p.parents[3].name!='mathlib'))
-        report['cache_root']=str(cache)
+        if pins!=LOCK['packages']:
+            raise RuntimeError('BLOCKED: Mathlib manifest disagrees with the Physlib dependency pins.')
+        paths=[build,mr/'.lake/build/lib/lean']
+        # Lake checkouts place Mathlib and its dependencies side by side.
+        for name, rev in pins.items():
+            if name=='mathlib': continue
+            local=mr.parent/name
+            if not local.is_dir():
+                local=mr/'.lake/packages'/name
+            if not local.is_dir():
+                raise RuntimeError(f'BLOCKED: missing checkout of {name}.')
+            code,text=command(f'pin-{name}',['git','-C',str(local),'rev-parse','HEAD'])
+            if code or text.strip()!=rev:
+                raise RuntimeError(f'BLOCKED: {name} checkout differs from Physlib pin.')
+            code,text=command(f'status-{name}',['git','--no-optional-locks','-C',str(local),
+                                               'status','--porcelain','--untracked-files=no'])
+            if code or text.strip():
+                raise RuntimeError(f'BLOCKED: {name} checkout contains tracked changes.')
+            lib=local/'.lake/build/lib/lean'
+            if lib.is_dir(): paths.append(lib)
+        report['physlib_reference_commit']=LOCK['physlib_reference_commit']
         lake=str(Path(lean).with_name('lake'))
         code,text=command('lake-version',[lake,'--version'])
-        if code or 'Lean version 4.30.0' not in text:
-            raise RuntimeError('BLOCKED: expected Lake bundled with Lean 4.30.0.')
+        if code or 'Lean version 4.35.0' not in text:
+            raise RuntimeError('BLOCKED: expected Lake bundled with Lean 4.35.0.')
         env['LEAN_PATH']=os.pathsep.join(map(str,paths))
         report.update(mathlib_root=str(mr),lean_path=env['LEAN_PATH'])
         seq=[('ApiProbe','ApiProbe.lean')]
@@ -111,7 +117,8 @@ def main() -> int:
             seq += [('H1-root','HohmannTransfer.lean')]
             seq += [(n,f'HohmannOptimality/{n}.lean') for n in BRIDGE_MODULES]
             seq += [('physical-root','HohmannOptimalityPhysical.lean'),
-                    ('full-single','Hohmann_Transfer_H2_All.lean'),('physical-axioms','AuditPhysical.lean')]
+                    ('full-single','Hohmann_Transfer_H2_All.lean'),('physical-axioms','AuditPhysical.lean'),
+                    ('all-axioms','AuditFull.lean')]
         for tag,rel in seq:
             dst=build/Path(rel).with_suffix('.olean');dst.parent.mkdir(parents=True,exist_ok=True)
             code,text=command(tag,[lean,'-j2','-o',str(dst),'-i',str(dst.with_suffix('.ilean')),rel])
@@ -119,6 +126,7 @@ def main() -> int:
                 report['failed_stage']=tag;raise RuntimeError(f'FAIL: {tag}. Preserve log; repair proofs, not specifications.')
             if 'axioms' in tag:
                 expected=re.findall(r'^#print axioms (\S+)',(ROOT/rel).read_text(),re.M)
+                expected=[name.replace('«example»', 'example') for name in expected]
                 audit=parse_axioms(text,expected)
                 (out/f'{tag}.json').write_text(json.dumps(audit,indent=2)+'\n')
                 if not audit['passed']:raise RuntimeError(f'FAIL: {tag} missing or nonstandard dependencies.')

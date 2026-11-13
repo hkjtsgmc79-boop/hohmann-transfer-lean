@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "records": {
+    "HohmannOptimality.Shape.corner_relation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.first_square_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.second_square_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.invariant_pair_of_first_square_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.endpoint_total_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.endpoint_equality_characterization": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PhysicalEndpoints.physical_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.energy_conserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.angular_conserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.newton_arc_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.finite_bielliptic_saves_deltaV": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.not_universally_best_against_bielliptic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.newton_arc_ideal_fuel_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.global_two_impulse_endpoint_optimality": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.global_two_impulse_newton_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.finite_three_impulse_counterexample": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.newton_arc_equality_endpoints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "missing": [],
+  "unexpected_axioms": {}
+}

@@ -1,0 +1,206 @@
+{
+  "kind": "text inventory only; not Lean parsing or verification",
+  "modules": 11,
+  "declarations": 120,
+  "lines": 1170,
+  "files": [
+    {
+      "path": "HohmannOptimality/Shape.lean",
+      "sha256": "0cb2b511fbc5b064a30ab23b6f72dc9897978e2976bfd38ee75c7d83e2fea1d3",
+      "lines": 95,
+      "declarations": [
+        "sum_pos",
+        "c_pos",
+        "c_sq",
+        "c_lt_one",
+        "h_pos",
+        "h_sq",
+        "h_sq_mul",
+        "one_lt_h_sq",
+        "one_lt_h",
+        "alpha_h_sq_lt_one",
+        "alpha_h_lt_c",
+        "alpha_c_lt_one",
+        "alpha_sq_h_lt_one",
+        "alpha_c_lt_h",
+        "corner_inner",
+        "corner_outer",
+        "corner_relation",
+        "burnH\u2081_pos",
+        "burnH\u2082_pos",
+        "costH_pos",
+        "corner_feasible"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/EndpointBounds.lean",
+      "sha256": "838f4df296ca9e56bb36b2e48e03ed8f04d271e5732032531eeae6eff648df0e",
+      "lines": 105,
+      "declarations": [
+        "gap\u2081_low",
+        "gap\u2081_high",
+        "gap\u2082_low",
+        "gap\u2082_high",
+        "low_factor\u2081_pos",
+        "low_factor\u2082_pos",
+        "high_factor\u2081_pos",
+        "high_factor\u2082_pos",
+        "first_square_lower_bound",
+        "second_square_lower_bound",
+        "first_square_strict_of_h_ne",
+        "invariant_pair_of_first_square_eq"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/EndpointOptimality.lean",
+      "sha256": "b892ee034444bcc03851b89013dc013d29fba74f70ff23388123bb22647c61e4",
+      "lines": 126,
+      "declarations": [
+        "feasible",
+        "impulse\u2081_nonneg",
+        "impulse\u2082_nonneg",
+        "impulse\u2081_sq",
+        "impulse\u2082_sq",
+        "impulse\u2081_sq_invariant",
+        "impulse\u2082_sq_invariant",
+        "endpoint_impulses_lower_bound",
+        "endpoint_total_lower_bound",
+        "hohmannEndpoints_cost",
+        "endpoint_equality_characterization"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/PhysicalUnits.lean",
+      "sha256": "7c3235033c8a3fb673dde0450738d61172baa60d1b976dbcfabc680b25612388",
+      "lines": 118,
+      "declarations": [
+        "r\u2082_pos",
+        "r\u2081_ne",
+        "r\u2082_ne",
+        "speed_pos",
+        "speed_ne",
+        "speed_sq",
+        "mu_over_r\u2082",
+        "circular\u2082_eq_sqrt",
+        "norm_scale",
+        "cost_eq_scaled",
+        "physical_lower_bound"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/PlanarState.lean",
+      "sha256": "3d7b91090569cd82106c4a8eb9382fba0755d801c0a85588354e3eddf10f8830",
+      "lines": 48,
+      "declarations": [
+        "radius_sq",
+        "radius_mul_tangent",
+        "polar_speed_sq",
+        "impulse_polar"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/KeplerConservation.lean",
+      "sha256": "923545084a4778035e90fdbe146677d59f0132ed6fcb40aece0e4f8e229e5469",
+      "lines": 143,
+      "declarations": [
+        "left_mem",
+        "right_mem",
+        "radius_deriv",
+        "angular_deriv_zero",
+        "energy_deriv_zero",
+        "equal_endpoints_of_zero_deriv",
+        "energy_conserved",
+        "angular_conserved",
+        "newton_arc_lower_bound",
+        "newton_arc_equality_endpoints"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/Bielliptic.lean",
+      "sha256": "c90ad714ef842475dd0131e904920378dd51f406075d1cc8eca1581c105fdbb0",
+      "lines": 131,
+      "declarations": [
+        "cost_nonneg",
+        "time_pos",
+        "example_departure",
+        "example_arrival",
+        "example_hohmann",
+        "sqrt_rational_interval",
+        "example_root_H_bounds",
+        "example_root_A_bounds",
+        "example_root_D_bounds",
+        "example_cost_closed",
+        "example_hohmann_closed",
+        "finite_bielliptic_saves_deltaV",
+        "finite_bielliptic_beats_hohmann",
+        "not_universally_best_against_bielliptic",
+        "scaled_counterexample"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/Fuel.lean",
+      "sha256": "d1ab26592e33fe17617b43f4cc37f051a1d71d0dffae7e959bf1f58de99d6bb3",
+      "lines": 47,
+      "declarations": [
+        "idealPropellantFraction_mono",
+        "idealPropellantFraction_strict",
+        "remaining_fraction_two_burns",
+        "newton_arc_ideal_fuel_lower_bound"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/PublicStatement.lean",
+      "sha256": "be48fa09931ec0f4e7b4f0da84749c1dfe40cbc5cdff62cf6103f368964d07d3",
+      "lines": 34,
+      "declarations": [
+        "global_two_impulse_endpoint_optimality",
+        "global_two_impulse_newton_lower_bound",
+        "finite_three_impulse_counterexample"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/H1Bridge.lean",
+      "sha256": "680ce2a0ce1b1523cb160d38dcc2c97d13b0c8ad3d9be704bfbef392deeeb7ad",
+      "lines": 178,
+      "declarations": [
+        "h1_speed",
+        "h1_outer_speed",
+        "h1_peri_speed",
+        "h1_apo_speed",
+        "h1_bound_eq_totalDeltaV",
+        "h1_global_two_impulse_minimum",
+        "h1_state_radius",
+        "h1_attains_bound_in_kepler_class"
+      ]
+    },
+    {
+      "path": "HohmannOptimality/BiellipticWitness.lean",
+      "sha256": "e140e5f857bf01d30ecb03d497597cec327e3be3fb261d7dc1d3610c05ddd09d",
+      "lines": 145,
+      "declarations": [
+        "secondPosition_deriv",
+        "secondVelocity_deriv",
+        "second_newton",
+        "second_start",
+        "second_end",
+        "second_velocity_start",
+        "second_velocity_end",
+        "junction",
+        "time_pos",
+        "first_peri",
+        "second_peri",
+        "first_apo",
+        "second_apo",
+        "direct_peri",
+        "direct_apo",
+        "direct_cost",
+        "jump\u2081_norm",
+        "jump\u2082_norm",
+        "jump\u2083_norm",
+        "cost_eq",
+        "physical_three_impulse_counterexample"
+      ]
+    }
+  ],
+  "forbidden_tokens": []
+}

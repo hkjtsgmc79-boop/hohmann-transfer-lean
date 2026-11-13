@@ -1,4 +1,4 @@
-/- Generated mechanically from the modular Hohmann sources. -/
+/- Generated mechanically from the modular Hohmann sources. Author: Qianli Ma (马千里). -/
 import Mathlib.Analysis.Calculus.Deriv.Inverse
 import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
@@ -13,9 +13,7 @@ import Mathlib.Analysis.Complex.Norm
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -110,9 +108,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -160,9 +156,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -234,9 +228,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -251,8 +243,7 @@ def clock (p : Parameters) (u : ℝ) : ℝ := (u - p.e * Real.sin u) / p.n
 
 lemma hasDerivAt_clock (p : Parameters) (u : ℝ) :
     HasDerivAt (clock p) (D p u / p.n) u := by
-  simpa [clock, D] using
-    ((hasDerivAt_id u).sub ((Real.hasDerivAt_sin u).const_mul p.e)).div_const p.n
+  exact ((hasDerivAt_id u).sub ((Real.hasDerivAt_sin u).const_mul p.e)).div_const p.n
 lemma clock_continuous (p : Parameters) : Continuous (clock p) := by
   exact continuous_iff_continuousAt.2 (fun u => (hasDerivAt_clock p u).continuousAt)
 lemma clock_strictMono (p : Parameters) : StrictMono (clock p) := by
@@ -337,9 +328,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -355,34 +344,37 @@ def velocity (p : Parameters) (t : ℝ) : ℂ := velocityAtAnomaly p (anomaly p 
 lemma hasDerivAt_D (p : Parameters) (u : ℝ) :
     HasDerivAt (D p) (p.e*Real.sin u) u := by
   convert (hasDerivAt_const u (1:ℝ)).sub
-    ((Real.hasDerivAt_cos u).const_mul p.e) using 1 <;> simp
+    ((Real.hasDerivAt_cos u).const_mul p.e) using 1 <;> first | rfl | simp
 lemma hasDerivAt_position (p : Parameters) (t : ℝ) :
     HasDerivAt (position p) (velocity p t) t := by
   have hu := hasDerivAt_anomaly p t
   have hx := (hu.cos.sub_const p.e).const_mul p.a
   have hy := hu.sin.const_mul p.b
   convert pack_deriv hx hy using 1
-  apply Complex.ext <;>
-    simp [velocity, velocityAtAnomaly, pack] <;> ring
+  · rfl
+  · apply Complex.ext <;>
+      simp [velocity, velocityAtAnomaly, pack] <;> ring
 lemma hasDerivAt_velocityAtAnomaly_x (p : Parameters) (u : ℝ) :
     HasDerivAt (fun s => (velocityAtAnomaly p s).re)
       (-p.a*p.n*(Real.cos u-p.e)/(D p u)^2) u := by
   have hnum := (Real.hasDerivAt_sin u).const_mul (-p.a*p.n)
   have h := hnum.div (hasDerivAt_D p u) (D_ne p u)
   convert h using 1
-  apply (div_left_inj' (pow_ne_zero 2 (D_ne p u))).2
-  unfold D
-  nlinarith [congrArg (fun x : ℝ => p.a*p.n*p.e*x)
-    (Real.sin_sq_add_cos_sq u)]
+  · rfl
+  · apply (div_left_inj' (pow_ne_zero 2 (D_ne p u))).2
+    unfold D
+    nlinarith [congrArg (fun x : ℝ => p.a*p.n*p.e*x)
+      (Real.sin_sq_add_cos_sq u)]
 lemma hasDerivAt_velocityAtAnomaly_y (p : Parameters) (u : ℝ) :
     HasDerivAt (fun s => (velocityAtAnomaly p s).im)
       (-p.b*p.n*Real.sin u/(D p u)^2) u := by
   have hnum := (Real.hasDerivAt_cos u).const_mul (p.b*p.n)
   have h := hnum.div (hasDerivAt_D p u) (D_ne p u)
   convert h using 1
-  apply (div_left_inj' (pow_ne_zero 2 (D_ne p u))).2
-  unfold D
-  ring
+  · rfl
+  · apply (div_left_inj' (pow_ne_zero 2 (D_ne p u))).2
+    unfold D
+    ring
 lemma hasDerivAt_velocity (p : Parameters) (t : ℝ) :
     HasDerivAt (velocity p)
       (-(p.n^2/(D p (anomaly p t))^3) • position p t) t := by
@@ -391,10 +383,11 @@ lemma hasDerivAt_velocity (p : Parameters) (t : ℝ) :
   have hy := (hasDerivAt_velocityAtAnomaly_y p (anomaly p t)).comp t
     (hasDerivAt_anomaly p t)
   convert pack_deriv hx hy using 1
-  rw [position, ellipse, pack_smul]
-  apply Complex.ext <;>
-    simp only [pack_re, pack_im] <;>
-    field_simp [D_ne p (anomaly p t)] <;> ring
+  · rfl
+  · rw [position, ellipse, pack_smul]
+    apply Complex.ext <;>
+      simp only [pack_re, pack_im] <;>
+      field_simp [D_ne p (anomaly p t)] <;> ring
 lemma deriv_position (p : Parameters) : deriv (position p) = velocity p := by
   funext t
   exact (hasDerivAt_position p t).deriv
@@ -409,9 +402,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -467,9 +458,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -518,7 +507,8 @@ lemma hasDerivAt_circularPosition (mu R phase t : ℝ) :
       (circularRate mu R) t := by
     simpa using ((hasDerivAt_id t).const_mul (circularRate mu R)).add_const phase
   convert pack_deriv (ha.cos.const_mul R) (ha.sin.const_mul R) using 1
-  apply Complex.ext <;> simp [circularVelocity, pack] <;> ring
+  · rfl
+  · apply Complex.ext <;> simp [circularVelocity, pack] <;> ring
 lemma hasDerivAt_circularVelocity (mu R phase t : ℝ) :
     HasDerivAt (circularVelocity mu R phase)
       (-(circularRate mu R)^2 • circularPosition mu R phase t) t := by
@@ -527,8 +517,9 @@ lemma hasDerivAt_circularVelocity (mu R phase t : ℝ) :
     simpa using ((hasDerivAt_id t).const_mul (circularRate mu R)).add_const phase
   convert pack_deriv (ha.sin.const_mul (-R*circularRate mu R))
     (ha.cos.const_mul (R*circularRate mu R)) using 1
-  rw [circularPosition, pack_smul]
-  apply Complex.ext <;> simp only [pack_re, pack_im] <;> ring
+  · rfl
+  · rw [circularPosition, pack_smul]
+    apply Complex.ext <;> simp only [pack_re, pack_im] <;> ring
 lemma circular_newton {mu R : ℝ} (hm : 0 < mu) (hR : 0 < R)
     (phase t : ℝ) :
     deriv (deriv (circularPosition mu R phase)) t =
@@ -544,9 +535,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -624,9 +613,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -743,9 +730,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -826,9 +811,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -914,9 +897,7 @@ end HohmannTransfer
 /-
 Copyright (c) 2026 Chengyuan AI Lab. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Chengyuan AI Lab
-
-H1 STATUS: uncompiled proof candidate; see STATUS.json.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -1007,7 +988,7 @@ end HohmannTransfer
 -- SOURCE MODULE: HohmannOptimality/Shape.lean
 /-
 Copyright (c) 2026 Chengyuan AI Lab. Released under Apache 2.0.
-H2: UNCOMPILED CANDIDATE. No kernel verification is claimed.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -1096,7 +1077,9 @@ end Shape
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/EndpointBounds.lean
-/- H2 uncompiled candidate. Algebraic global bounds, with no calculus/KKT. -/
+/-
+Authors: Qianli Ma
+Algebraic global bounds, with no calculus/KKT. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -1200,7 +1183,9 @@ theorem invariant_pair_of_first_square_eq (s : Shape) {w h : ℝ}
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/EndpointOptimality.lean
-/- H2 uncompiled candidate. Endpoints allow radial velocity and signed momentum. -/
+/-
+Authors: Qianli Ma
+Endpoints allow radial velocity and signed momentum. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -1325,7 +1310,9 @@ theorem endpoint_equality_characterization (s : Shape) (z : EndpointData s)
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/PhysicalUnits.lean
-/- H2 uncompiled candidate. Restore arbitrary positive μ and length scale. -/
+/-
+Authors: Qianli Ma
+Restore arbitrary positive μ and length scale. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -1442,7 +1429,9 @@ end PhysicalEndpoints
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/PlanarState.lean
-/- H2 uncompiled candidate. Euclidean, NOT a product-type sup-norm. -/
+/-
+Authors: Qianli Ma
+Euclidean, NOT a product-type sup-norm. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -1489,7 +1478,9 @@ end PlanarState
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/KeplerConservation.lean
-/- H2 uncompiled candidate. Conservation is DERIVED from genuine derivatives.
+/-
+Authors: Qianli Ma
+Conservation is DERIVED from genuine derivatives.
 Only the smooth coast interval is modeled; impulses are endpoint velocity jumps.
 -/
 
@@ -1532,15 +1523,18 @@ lemma radius_deriv {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁
     exact (lt_irrefl 0) hr
   have hd := (((a.dx t ht).pow 2).add ((a.dy t ht).pow 2)).sqrt harg
   convert hd using 1
-  dsimp [state, PlanarState.radius]
-  field_simp [ne_of_gt hr]
+  · rfl
+  · simp only [state, PlanarState.radius, Pi.add_apply, Pi.pow_apply, Nat.reduceSub,
+      pow_one, Nat.cast_ofNat]
+    field_simp [ne_of_gt hr]
 
 lemma angular_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
     HasDerivAt (fun u => (a.state u).angular) 0 t := by
   have hd := ((a.dx t ht).mul (a.dvy t ht)).sub ((a.dy t ht).mul (a.dvx t ht))
   convert hd using 1
-  field_simp [ne_of_gt (a.radius_pos t ht)]
-  ring
+  · rfl
+  · field_simp [ne_of_gt (a.radius_pos t ht)]
+    ring
 
 lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
     HasDerivAt (fun u => (a.state u).energy mu) 0 t := by
@@ -1548,9 +1542,10 @@ lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a
   have hk := ((a.dvx t ht).pow 2).add ((a.dvy t ht).pow 2)
   have hp := (hasDerivAt_const t (2*mu)).div (a.radius_deriv ht) hr
   convert hk.sub hp using 1
-  dsimp [state, PlanarState.radius] at hr ⊢
-  field_simp [hr]
-  ring
+  · rfl
+  · dsimp [state, PlanarState.radius] at hr ⊢
+    field_simp [hr]
+    ring
 
 lemma equal_endpoints_of_zero_deriv {f : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b)
     (hd : ∀ t ∈ Icc a b, HasDerivAt f 0 t) : f b=f a := by
@@ -1627,7 +1622,9 @@ end KeplerArc
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/Bielliptic.lean
-/- H2 uncompiled candidate. A finite three-burn competitor, not an infinite limit. -/
+/-
+Authors: Qianli Ma
+A finite three-burn competitor, not an infinite limit. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -1757,7 +1754,9 @@ end Bielliptic
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/Fuel.lean
-/- H2 uncompiled candidate. Delta-v is not generally identical to propellant.
+/-
+Authors: Qianli Ma
+Delta-v is not generally identical to propellant.
 This corollary uses one ideal stage, fixed exhaust speed, same initial mass,
 no staging/dry-mass changes/refuelling and no other propellant expenditure.
 -/
@@ -1802,7 +1801,9 @@ theorem newton_arc_ideal_fuel_lower_bound (p : Units) (a : KeplerArc p.mu)
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/PublicStatement.lean
-/- H2 uncompiled candidate. Freeze theorem headers before local repair. -/
+/-
+Authors: Qianli Ma
+Public two-impulse optimality and finite cost comparison. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -1835,7 +1836,9 @@ theorem finite_three_impulse_counterexample :
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/H1Bridge.lean
-/- H2 uncompiled candidate. H1 sources are copied byte-for-byte, not re-certified.
+/-
+Authors: Qianli Ma
+The explicit H1 orbit attains the H2 lower bound.
 This optional layer ties the independent lower bound to H1's physical witness.
 -/
 
@@ -1913,7 +1916,8 @@ theorem h1_global_two_impulse_minimum (p : HohmannTransfer.Parameters) :
   · rw [h1_bound_eq_totalDeltaV, HohmannTransfer.totalDeltaV_eq_sum_norms]
   · intro a h₀ h₁
     have h := KeplerArc.newton_arc_lower_bound (unitsOfH1 p) a h₀ h₁
-    simpa only [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] using h
+    rw [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] at h
+    exact h
 
 
 /-- The explicit H1 coast is a member of the same class used for the lower bound. -/
@@ -2010,7 +2014,9 @@ theorem h1_attains_bound_in_kepler_class (p : HohmannTransfer.Parameters) :
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/BiellipticWitness.lean
-/- H2 uncompiled candidate. Two finite actual Kepler arcs + three velocity jumps.
+/-
+Authors: Qianli Ma
+Two finite actual Kepler arcs + three velocity jumps.
 The second ellipse is followed from apoapsis to periapsis by a time shift.
 -/
 
@@ -2035,13 +2041,15 @@ lemma secondPosition_deriv (t : ℝ) : HasDerivAt secondPosition (secondVelocity
   have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
     (hasDerivAt_id t).add_const second.transferTime
   have h := (hasDerivAt_position second (t+second.transferTime)).scomp t hshift
-  simpa [secondPosition, secondVelocity, Function.comp_def] using h
+  rw [one_smul] at h
+  exact h
 lemma secondVelocity_deriv (t : ℝ) :
     HasDerivAt secondVelocity (-(1/‖secondPosition t‖^3) • secondPosition t) t := by
   have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
     (hasDerivAt_id t).add_const second.transferTime
   have h := (hasDerivAt_velocity_newton second (t+second.transferTime)).scomp t hshift
-  simpa [secondPosition, secondVelocity, gravity, Function.comp_def, show second.mu = 1 from rfl] using h
+  rw [one_smul] at h
+  exact h
 lemma second_newton (t : ℝ) :
     deriv (deriv secondPosition) t = -(1/‖secondPosition t‖^3) • secondPosition t := by
   have hd : deriv secondPosition=secondVelocity := funext (fun s => (secondPosition_deriv s).deriv)

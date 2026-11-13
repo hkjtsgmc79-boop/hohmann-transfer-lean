@@ -1,0 +1,36 @@
+HohmannTransfer/Impulses.lean:29:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+HohmannTransfer/Impulses.lean:29:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+HohmannTransfer/Impulses.lean:35:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+HohmannTransfer/Impulses.lean:35:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+HohmannTransfer/Impulses.lean:67:4: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+HohmannTransfer/Impulses.lean:67:8: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+HohmannTransfer/Impulses.lean:67:8: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+HohmannTransfer/Impulses.lean:82:4: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+HohmannTransfer/Impulses.lean:82:8: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+HohmannTransfer/Impulses.lean:82:8: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+HohmannTransfer/Impulses.lean:101:45: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+HohmannTransfer/Impulses.lean:101:45: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`

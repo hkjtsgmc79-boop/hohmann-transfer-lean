@@ -1,0 +1,7 @@
+'HohmannOptimality.h1_global_two_impulse_minimum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HohmannOptimality.BiellipticWitness.physical_three_impulse_counterexample' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HohmannTransfer.hohmann_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HohmannTransfer.exists_hohmann_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HohmannOptimality.h1_attains_bound_in_kepler_class' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,4 +1,4 @@
-/- Generated mechanically from the modular Hohmann sources. -/
+/- Generated mechanically from the modular Hohmann sources. Author: Qianli Ma (马千里). -/
 import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
 import Mathlib.Analysis.SpecialFunctions.Sqrt
@@ -9,7 +9,7 @@ import Mathlib.Tactic
 -- SOURCE MODULE: HohmannOptimality/Shape.lean
 /-
 Copyright (c) 2026 Chengyuan AI Lab. Released under Apache 2.0.
-H2: UNCOMPILED CANDIDATE. No kernel verification is claimed.
+Authors: Qianli Ma
 -/
 
 noncomputable section
@@ -98,7 +98,9 @@ end Shape
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/EndpointBounds.lean
-/- H2 uncompiled candidate. Algebraic global bounds, with no calculus/KKT. -/
+/-
+Authors: Qianli Ma
+Algebraic global bounds, with no calculus/KKT. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -202,7 +204,9 @@ theorem invariant_pair_of_first_square_eq (s : Shape) {w h : ℝ}
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/EndpointOptimality.lean
-/- H2 uncompiled candidate. Endpoints allow radial velocity and signed momentum. -/
+/-
+Authors: Qianli Ma
+Endpoints allow radial velocity and signed momentum. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -327,7 +331,9 @@ theorem endpoint_equality_characterization (s : Shape) (z : EndpointData s)
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/PhysicalUnits.lean
-/- H2 uncompiled candidate. Restore arbitrary positive μ and length scale. -/
+/-
+Authors: Qianli Ma
+Restore arbitrary positive μ and length scale. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -444,7 +450,9 @@ end PhysicalEndpoints
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/PlanarState.lean
-/- H2 uncompiled candidate. Euclidean, NOT a product-type sup-norm. -/
+/-
+Authors: Qianli Ma
+Euclidean, NOT a product-type sup-norm. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -491,7 +499,9 @@ end PlanarState
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/KeplerConservation.lean
-/- H2 uncompiled candidate. Conservation is DERIVED from genuine derivatives.
+/-
+Authors: Qianli Ma
+Conservation is DERIVED from genuine derivatives.
 Only the smooth coast interval is modeled; impulses are endpoint velocity jumps.
 -/
 
@@ -534,15 +544,18 @@ lemma radius_deriv {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁
     exact (lt_irrefl 0) hr
   have hd := (((a.dx t ht).pow 2).add ((a.dy t ht).pow 2)).sqrt harg
   convert hd using 1
-  dsimp [state, PlanarState.radius]
-  field_simp [ne_of_gt hr]
+  · rfl
+  · simp only [state, PlanarState.radius, Pi.add_apply, Pi.pow_apply, Nat.reduceSub,
+      pow_one, Nat.cast_ofNat]
+    field_simp [ne_of_gt hr]
 
 lemma angular_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
     HasDerivAt (fun u => (a.state u).angular) 0 t := by
   have hd := ((a.dx t ht).mul (a.dvy t ht)).sub ((a.dy t ht).mul (a.dvx t ht))
   convert hd using 1
-  field_simp [ne_of_gt (a.radius_pos t ht)]
-  ring
+  · rfl
+  · field_simp [ne_of_gt (a.radius_pos t ht)]
+    ring
 
 lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
     HasDerivAt (fun u => (a.state u).energy mu) 0 t := by
@@ -550,9 +563,10 @@ lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a
   have hk := ((a.dvx t ht).pow 2).add ((a.dvy t ht).pow 2)
   have hp := (hasDerivAt_const t (2*mu)).div (a.radius_deriv ht) hr
   convert hk.sub hp using 1
-  dsimp [state, PlanarState.radius] at hr ⊢
-  field_simp [hr]
-  ring
+  · rfl
+  · dsimp [state, PlanarState.radius] at hr ⊢
+    field_simp [hr]
+    ring
 
 lemma equal_endpoints_of_zero_deriv {f : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b)
     (hd : ∀ t ∈ Icc a b, HasDerivAt f 0 t) : f b=f a := by
@@ -629,7 +643,9 @@ end KeplerArc
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/Bielliptic.lean
-/- H2 uncompiled candidate. A finite three-burn competitor, not an infinite limit. -/
+/-
+Authors: Qianli Ma
+A finite three-burn competitor, not an infinite limit. -/
 
 noncomputable section
 namespace HohmannOptimality
@@ -759,7 +775,9 @@ end Bielliptic
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/Fuel.lean
-/- H2 uncompiled candidate. Delta-v is not generally identical to propellant.
+/-
+Authors: Qianli Ma
+Delta-v is not generally identical to propellant.
 This corollary uses one ideal stage, fixed exhaust speed, same initial mass,
 no staging/dry-mass changes/refuelling and no other propellant expenditure.
 -/
@@ -804,7 +822,9 @@ theorem newton_arc_ideal_fuel_lower_bound (p : Units) (a : KeplerArc p.mu)
 end HohmannOptimality
 
 -- SOURCE MODULE: HohmannOptimality/PublicStatement.lean
-/- H2 uncompiled candidate. Freeze theorem headers before local repair. -/
+/-
+Authors: Qianli Ma
+Public two-impulse optimality and finite cost comparison. -/
 
 noncomputable section
 namespace HohmannOptimality

@@ -1,0 +1,1797 @@
+{
+  "passed": true,
+  "records": {
+    "HohmannTransfer.circularRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circularSpeed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circularPosition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circularVelocity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circularRate_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circularRate_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circularSpeed_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circularSpeed_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circularSpeed_eq_rate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_circularPosition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_circularPosition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_circularVelocity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.circular_newton": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.position": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.velocity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_D": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_position": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_velocityAtAnomaly_x": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_velocityAtAnomaly_y": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_velocity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.deriv_position": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.position_continuous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.velocity_continuous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.gravity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_position": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.position_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_position_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.position_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.acceleration_coefficient": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_velocity_newton": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.second_deriv_position": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.position_periodic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.velocity_periodic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.periSpeed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.apoSpeed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.periSpeed_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.apoSpeed_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.position_departure": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.position_arrival": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.velocity_departure": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.velocity_arrival": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.periSpeed_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.apoSpeed_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.periSpeed_formula": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.apoSpeed_formula": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_velocity_departure": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_velocity_arrival": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.D": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.radial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.ellipse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.velocityAtAnomaly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.D_lower": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.D_upper": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.D_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.D_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.radial_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.ellipse_squared_radius": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_ellipse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.radial_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.ellipse_ne_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.D_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.D_pi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.ellipse_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.ellipse_pi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.ellipse_periodic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.deltaV\u2081": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.deltaV\u2082": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.totalDeltaV": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.entryImpulse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.exitImpulse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.peri_excess_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.apo_deficit_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.deltaV\u2081_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.deltaV\u2082_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.totalDeltaV_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.periSpeed_factorized": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.apoSpeed_factorized": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.deltaV\u2081_formula": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.deltaV\u2082_formula": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.entryImpulse_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.exitImpulse_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.entryImpulse_norm": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.exitImpulse_norm": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.totalDeltaV_eq_sum_norms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.impulses_tangential": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.specificEnergy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.velocity_numerator": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.velocityAtAnomaly_norm_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.vis_viva_at_anomaly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.vis_viva": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.coast_energy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.coast_energy_negative": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.angular_momentum_at_anomaly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.coast_angular_momentum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.coast_angular_momentum_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_clock": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock_continuous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock_strictMono": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock_surjective": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clockIso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.anomaly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock_anomaly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.anomaly_clock": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.anomaly_continuous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.anomaly_strictMono": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hasDerivAt_anomaly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock_pi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.anomaly_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.anomaly_transferTime": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.kepler_equation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.anomaly_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.clock_add_two_pi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.anomaly_add_period": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.a": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.e": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.b": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.n": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.transferTime": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.r\u2082_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.sum_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.a_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.e_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.e_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.b_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.b_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.n_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.n_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.a_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.n_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.r\u2081_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.r\u2082_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.one_sub_e_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.one_add_e_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.a_mul_one_sub_e": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.a_mul_one_add_e": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.b_sq_ellipse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.n_sq_mul_a_cube": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.transferTime_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.transferTime_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.Parameters.transferTime_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.pack": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.cross": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.sqSpeed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.pack_re": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.pack_im": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.sqSpeed_eq_norm_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_pack_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_pack_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.norm_pack_vertical": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.pack_deriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.pack_smul": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.pack_sub": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.pack_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.hohmann_transfer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.exists_hohmann_transfer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.incoming": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.outgoingPhase": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.outgoing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.flight": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.incoming_deriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.outgoing_deriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.incoming_newton": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.outgoing_newton": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.incoming_radius": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.outgoing_radius": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.incoming_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.outgoing_angle": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.outgoing_arrival": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.incoming_velocity_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.outgoing_velocity_arrival": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.junction_positions": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.junction_velocity_jumps": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.flight_before": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.flight_transfer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.flight_after": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannTransfer.apsidal_parameters_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.Parameters": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.departureSpeed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.arrivalSpeed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.firstApoSpeed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.secondApoSpeed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.hohmannPeri": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.hohmannCost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.time": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.hohmannTime": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.cost_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.time_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example_departure": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example_arrival": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example_hohmann": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.sqrt_rational_interval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example_root_H_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example_root_A_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example_root_D_bounds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example_cost_closed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.example_hohmann_closed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.finite_bielliptic_saves_deltaV": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.finite_bielliptic_beats_hohmann": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.not_universally_best_against_bielliptic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Bielliptic.scaled_counterexample": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.first": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.second": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.direct": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.secondPosition": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.secondVelocity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.totalTime": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.jump\u2081": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.jump\u2082": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.jump\u2083": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.secondPosition_deriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.secondVelocity_deriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.second_newton": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.second_start": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.second_end": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.second_velocity_start": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.second_velocity_end": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.junction": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.time_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.first_peri": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.second_peri": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.first_apo": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.second_apo": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.direct_peri": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.direct_apo": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.direct_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.jump\u2081_norm": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.jump\u2082_norm": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.jump\u2083_norm": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.cost_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.BiellipticWitness.physical_three_impulse_counterexample": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.gap\u2081_low": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.gap\u2081_high": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.gap\u2082_low": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.gap\u2082_high": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.low_factor\u2081_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.low_factor\u2082_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.high_factor\u2081_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.high_factor\u2082_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.first_square_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.second_square_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.first_square_strict_of_h_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.invariant_pair_of_first_square_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.w": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.impulse\u2081": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.impulse\u2082": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.feasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.impulse\u2081_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.impulse\u2082_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.impulse\u2081_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.impulse\u2082_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.impulse\u2081_sq_invariant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.EndpointData.impulse\u2082_sq_invariant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.endpoint_impulses_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.endpoint_total_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.hohmannEndpoints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.hohmannEndpoints_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.endpoint_equality_characterization": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.idealPropellantFraction": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.idealPropellantFraction_mono": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.idealPropellantFraction_strict": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.remaining_fraction_two_burns": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.newton_arc_ideal_fuel_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.unitsOfH1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1_speed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1_outer_speed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1_peri_speed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1_apo_speed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1_bound_eq_totalDeltaV": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1_global_two_impulse_minimum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1KeplerArc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1_state_radius": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.h1_attains_bound_in_kepler_class": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.state": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.left_mem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.right_mem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.radius_deriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.angular_deriv_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.energy_deriv_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.equal_endpoints_of_zero_deriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.energy_conserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.angular_conserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.endpoints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.newton_arc_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.KeplerArc.newton_arc_equality_endpoints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.r\u2082_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.r\u2081_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.r\u2082_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.shape": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.speed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.circular\u2082": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.speed_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.speed_ne": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.speed_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.mu_over_r\u2082": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Units.circular\u2082_eq_sqrt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PhysicalEndpoints": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PhysicalEndpoints.cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PhysicalEndpoints.normalized": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PhysicalEndpoints.norm_scale": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PhysicalEndpoints.cost_eq_scaled": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PhysicalEndpoints.physical_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.radius": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.angular": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.radial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.energy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.impulse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.radius_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.radius_mul_tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.polar_speed_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.PlanarState.impulse_polar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.global_two_impulse_endpoint_optimality": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.global_two_impulse_newton_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.finite_three_impulse_counterexample": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.circularOuter": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.hH": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.energyH": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.burnH\u2081": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.burnH\u2082": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.costH": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.sum_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.c_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.c_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.c_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.h_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.h_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.h_sq_mul": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.one_lt_h_sq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.one_lt_h": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.alpha_h_sq_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.alpha_h_lt_c": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.alpha_c_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.alpha_sq_h_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.alpha_c_lt_h": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.corner_inner": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.corner_outer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.corner_relation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.burnH\u2081_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.burnH\u2082_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.costH_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.Feasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.corner_feasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.burnSquare\u2081": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "HohmannOptimality.Shape.burnSquare\u2082": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "missing": [],
+  "unexpected_axioms": {}
+}

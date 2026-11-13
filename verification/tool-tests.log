@@ -1,0 +1,21 @@
+test_H1_theorem_headers_match_baseline (test_tools.ToolTests) ... ok
+test_axioms_bad (test_tools.ToolTests) ... ok
+test_axioms_empty (test_tools.ToolTests) ... ok
+test_axioms_missing (test_tools.ToolTests) ... ok
+test_axioms_standard (test_tools.ToolTests) ... ok
+test_axioms_wrapped (test_tools.ToolTests) ... ok
+test_core_export_independent (test_tools.ToolTests) ... ok
+test_exports_deterministic (test_tools.ToolTests) ... ok
+test_inventory (test_tools.ToolTests) ... ok
+test_line_comments (test_tools.ToolTests) ... ok
+test_nested_comments (test_tools.ToolTests) ... ok
+test_real_token_retained (test_tools.ToolTests) ... ok
+test_signature_body_independent (test_tools.ToolTests) ... ok
+test_signature_detects_weakening (test_tools.ToolTests) ... ok
+test_string_literals (test_tools.ToolTests) ... ok
+test_unterminated (test_tools.ToolTests) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.047s
+
+OK

@@ -1,4 +1,4 @@
--- H1 source candidates; compilation evidence belongs in reports.
+-- H1: explicit Newtonian dynamics of the outward Hohmann transfer.
 import HohmannTransfer.Parameters
 import HohmannTransfer.Plane
 import HohmannTransfer.Geometry

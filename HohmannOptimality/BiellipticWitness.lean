@@ -1,4 +1,6 @@
-/- H2 uncompiled candidate. Two finite actual Kepler arcs + three velocity jumps.
+/-
+Authors: Qianli Ma
+Two finite actual Kepler arcs + three velocity jumps.
 The second ellipse is followed from apoapsis to periapsis by a time shift.
 -/
 import HohmannOptimality.H1Bridge
@@ -24,13 +26,15 @@ lemma secondPosition_deriv (t : ℝ) : HasDerivAt secondPosition (secondVelocity
   have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
     (hasDerivAt_id t).add_const second.transferTime
   have h := (hasDerivAt_position second (t+second.transferTime)).scomp t hshift
-  simpa [secondPosition, secondVelocity, Function.comp_def] using h
+  rw [one_smul] at h
+  exact h
 lemma secondVelocity_deriv (t : ℝ) :
     HasDerivAt secondVelocity (-(1/‖secondPosition t‖^3) • secondPosition t) t := by
   have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
     (hasDerivAt_id t).add_const second.transferTime
   have h := (hasDerivAt_velocity_newton second (t+second.transferTime)).scomp t hshift
-  simpa [secondPosition, secondVelocity, gravity, Function.comp_def, show second.mu = 1 from rfl] using h
+  rw [one_smul] at h
+  exact h
 lemma second_newton (t : ℝ) :
     deriv (deriv secondPosition) t = -(1/‖secondPosition t‖^3) • secondPosition t := by
   have hd : deriv secondPosition=secondVelocity := funext (fun s => (secondPosition_deriv s).deriv)

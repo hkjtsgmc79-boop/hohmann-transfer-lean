@@ -1,0 +1,117 @@
+Hohmann_Transfer_H2_All.lean:68:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:68:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Hohmann_Transfer_H2_All.lean:72:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:72:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Hohmann_Transfer_H2_All.lean:77:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:77:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Hohmann_Transfer_H2_All.lean:390:40: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:390:44: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:390:44: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Hohmann_Transfer_H2_All.lean:560:69: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:560:69: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Hohmann_Transfer_H2_All.lean:639:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:639:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Hohmann_Transfer_H2_All.lean:645:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:645:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Hohmann_Transfer_H2_All.lean:677:4: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:677:8: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:677:8: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Hohmann_Transfer_H2_All.lean:692:4: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:692:8: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:692:8: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Hohmann_Transfer_H2_All.lean:711:45: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:711:45: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Hohmann_Transfer_H2_All.lean:764:6: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:764:10: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:768:6: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:768:10: warning: Unused tactic linter: `ring` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:764:10: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Hohmann_Transfer_H2_All.lean:768:10: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Hohmann_Transfer_H2_All.lean:785:2: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:785:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Hohmann_Transfer_H2_All.lean:884:5: warning: Variable name `hA` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hA
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Hohmann_Transfer_H2_All.lean:1072:17: warning: Variable name `s` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _s
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Hohmann_Transfer_H2_All.lean:1679:42: warning: Variable name `hl` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hl
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Hohmann_Transfer_H2_All.lean:2137:10: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Hohmann_Transfer_H2_All.lean:2137:10: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
