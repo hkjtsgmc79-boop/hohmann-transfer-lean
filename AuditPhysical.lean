@@ -1,0 +1,6 @@
+import HohmannOptimalityPhysical
+#print axioms HohmannOptimality.h1_global_two_impulse_minimum
+#print axioms HohmannOptimality.BiellipticWitness.physical_three_impulse_counterexample
+#print axioms HohmannTransfer.hohmann_transfer
+#print axioms HohmannTransfer.exists_hohmann_transfer
+#print axioms HohmannOptimality.h1_attains_bound_in_kepler_class

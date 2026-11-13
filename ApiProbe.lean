@@ -1,0 +1,23 @@
+import Mathlib.Analysis.Calculus.Deriv.Inv
+-- Compile this probe before repairing proof modules; no success log is prefilled.
+import Mathlib.Analysis.Calculus.Deriv.MeanValue
+import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Analysis.SpecialFunctions.ExpDeriv
+import Mathlib.Analysis.Complex.Norm
+import Mathlib.Tactic
+#check Real.sq_sqrt
+#check Real.sqrt_nonneg
+#check Real.sqrt_pos
+#check Real.exp_le_exp
+#check Real.exp_lt_exp
+#check Real.exp_add
+#check HasDerivAt.sqrt
+#check HasDerivAt.pow
+#check HasDerivAt.div
+#check HasDerivAt.add_const
+#check constant_of_has_deriv_right_zero
+#check div_le_div_iff_of_pos_right
+#check div_lt_div_iff_of_pos_right
+#check lt_or_gt_of_ne
+#check abs_sub_comm
+#check Complex.normSq_eq_norm_sq

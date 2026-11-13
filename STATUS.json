@@ -1,0 +1,38 @@
+{
+  "project": "Hohmann Transfer H2",
+  "date": "2026-11-13",
+  "status": "CORE_AND_FULL_LEAN_KERNEL_VERIFIED",
+  "lean_verified": true,
+  "axiom_audit_executed": true,
+  "physical_attainment_verified": true,
+  "last_actual_verifier_status": "PASS",
+  "last_actual_verifier_exit_code": 0,
+  "new_modules": 11,
+  "inherited_H1_modules": 12,
+  "combined_modules": 23,
+  "independent_checks": {
+    "symbolic_identities": 13,
+    "feasible_endpoint_cases": 2688,
+    "corner_cases": 42,
+    "newton_ODE_integrations": 3,
+    "negative_controls": 6,
+    "runner_unit_tests": 16
+  },
+  "not_claimed": [
+    "all-maneuver optimality",
+    "general engine fuel optimality",
+    "independent review",
+    "first formalization",
+    "Physlib acceptance"
+  ],
+  "cloud_upload_this_round": false,
+  "core_verified": true,
+  "full_verified": true,
+  "axioms_checked": 22,
+  "verified_toolchain": "leanprover/lean4:v4.30.0",
+  "verified_mathlib_commit": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "final_runs": {
+    "core": "20261113T104756537880Z",
+    "full": "20261113T104858753779Z"
+  }
+}

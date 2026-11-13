@@ -1,0 +1,1307 @@
+H2 NEW SOURCE — UNCOMPILED CANDIDATES (H1 baseline included separately)
+
+========================================================================
+FILE: lean-toolchain
+========================================================================
+leanprover/lean4:v4.30.0
+
+========================================================================
+FILE: lakefile.toml
+========================================================================
+name = "hohmann_transfer_h2"
+version = "0.2.0"
+defaultTargets = ["HohmannOptimality"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "c5ea00351c28e24afc9f0f84379aa41082b1188f"
+
+[[lean_lib]]
+name = "HohmannOptimality"
+
+[[lean_lib]]
+name = "HohmannTransfer"
+
+[[lean_lib]]
+name = "HohmannOptimalityPhysical"
+
+========================================================================
+FILE: HohmannOptimality.lean
+========================================================================
+-- H2 standalone optimality development. All sources remain uncompiled candidates.
+import HohmannOptimality.PublicStatement
+
+========================================================================
+FILE: HohmannOptimalityPhysical.lean
+========================================================================
+-- Includes H1's uncompiled dynamical construction; validate independently of core.
+import HohmannOptimality.H1Bridge
+import HohmannOptimality.BiellipticWitness
+
+========================================================================
+FILE: HohmannOptimality/Shape.lean
+========================================================================
+/-
+Copyright (c) 2026 Chengyuan AI Lab. Released under Apache 2.0.
+H2: UNCOMPILED CANDIDATE. No kernel verification is claimed.
+-/
+import Mathlib.Analysis.Calculus.Deriv.Inv
+import Mathlib.Analysis.Calculus.Deriv.MeanValue
+import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Analysis.SpecialFunctions.ExpDeriv
+import Mathlib.Analysis.Complex.Norm
+import Mathlib.Tactic
+
+noncomputable section
+namespace HohmannOptimality
+
+/-- Reciprocal radius ratio. Length unit is r₁; speed unit is √(μ/r₁). -/
+structure Shape where
+  alpha : ℝ
+  alpha_pos : 0 < alpha
+  alpha_lt_one : alpha < 1
+
+namespace Shape
+
+def circularOuter (s : Shape) : ℝ := Real.sqrt s.alpha
+def hH (s : Shape) : ℝ := Real.sqrt (2 / (1 + s.alpha))
+def energyH (s : Shape) : ℝ := s.hH ^ 2 - 2
+/-- The conserved energy variable is twice specific energy in speed units. -/
+def burnH₁ (s : Shape) : ℝ := s.hH - 1
+def burnH₂ (s : Shape) : ℝ := s.circularOuter - s.alpha * s.hH
+def costH (s : Shape) : ℝ := s.burnH₁ + s.burnH₂
+
+lemma sum_pos (s : Shape) : 0 < 1 + s.alpha := by linarith [s.alpha_pos]
+lemma c_pos (s : Shape) : 0 < s.circularOuter := Real.sqrt_pos.2 s.alpha_pos
+lemma c_sq (s : Shape) : s.circularOuter ^ 2 = s.alpha :=
+  Real.sq_sqrt (le_of_lt s.alpha_pos)
+lemma c_lt_one (s : Shape) : s.circularOuter < 1 := by
+  nlinarith [s.c_sq, s.alpha_lt_one, s.c_pos]
+lemma h_pos (s : Shape) : 0 < s.hH :=
+  Real.sqrt_pos.2 (div_pos (by norm_num) s.sum_pos)
+lemma h_sq (s : Shape) : s.hH ^ 2 = 2 / (1 + s.alpha) :=
+  Real.sq_sqrt (le_of_lt (div_pos (by norm_num) s.sum_pos))
+lemma h_sq_mul (s : Shape) : s.hH ^ 2 * (1 + s.alpha) = 2 := by
+  rw [s.h_sq]
+  field_simp [ne_of_gt s.sum_pos]
+lemma one_lt_h_sq (s : Shape) : 1 < s.hH ^ 2 := by
+  rw [s.h_sq]
+  apply (lt_div_iff₀ s.sum_pos).2
+  linarith [s.alpha_lt_one]
+lemma one_lt_h (s : Shape) : 1 < s.hH := by
+  nlinarith [s.one_lt_h_sq, s.h_pos]
+lemma alpha_h_sq_lt_one (s : Shape) : s.alpha * s.hH ^ 2 < 1 := by
+  nlinarith [s.h_sq_mul, s.one_lt_h_sq]
+lemma alpha_h_lt_c (s : Shape) : s.alpha * s.hH < s.circularOuter := by
+  have hmul := mul_lt_mul_of_pos_left s.alpha_h_sq_lt_one s.alpha_pos
+  have hp : 0 < s.alpha * s.hH := mul_pos s.alpha_pos s.h_pos
+  nlinarith [s.c_sq, s.c_pos]
+lemma alpha_c_lt_one (s : Shape) : s.alpha * s.circularOuter < 1 := by
+  have h := mul_lt_mul_of_pos_right s.alpha_lt_one s.c_pos
+  nlinarith [s.c_lt_one]
+lemma alpha_sq_h_lt_one (s : Shape) : s.alpha ^ 2 * s.hH < 1 := by
+  have h := mul_lt_mul_of_pos_left s.alpha_h_lt_c s.alpha_pos
+  nlinarith [s.alpha_c_lt_one]
+lemma alpha_c_lt_h (s : Shape) : s.alpha * s.circularOuter < s.hH :=
+  lt_trans s.alpha_c_lt_one s.one_lt_h
+lemma corner_inner (s : Shape) : s.energyH + 2 = s.hH ^ 2 := by
+  unfold energyH
+  ring
+lemma corner_outer (s : Shape) : s.energyH + 2 * s.alpha = s.alpha ^ 2 * s.hH ^ 2 := by
+  have h := congrArg (fun z : ℝ => (s.alpha - 1) * z) s.h_sq_mul
+  unfold energyH
+  nlinarith
+lemma corner_relation (s : Shape) :
+    s.alpha ^ 2 * s.hH ^ 2 - 2 * s.alpha = s.hH ^ 2 - 2 := by
+  have h := s.corner_outer
+  dsimp [energyH] at h
+  linarith
+lemma burnH₁_pos (s : Shape) : 0 < s.burnH₁ := sub_pos.mpr s.one_lt_h
+lemma burnH₂_pos (s : Shape) : 0 < s.burnH₂ := sub_pos.mpr s.alpha_h_lt_c
+lemma costH_pos (s : Shape) : 0 < s.costH := add_pos s.burnH₁_pos s.burnH₂_pos
+
+/-- Both radial-speed squares must be nonnegative. h is signed: retrograde
+coasts are not silently excluded. This is a relaxation, not a trajectory. -/
+def Feasible (s : Shape) (w h : ℝ) : Prop :=
+  h ^ 2 ≤ w + 2 ∧ s.alpha ^ 2 * h ^ 2 ≤ w + 2 * s.alpha
+
+lemma corner_feasible (s : Shape) : s.Feasible s.energyH s.hH := by
+  constructor
+  · exact le_of_eq s.corner_inner.symm
+  · exact le_of_eq s.corner_outer.symm
+
+def burnSquare₁ (s : Shape) (w h : ℝ) : ℝ := w + 3 - 2 * h
+def burnSquare₂ (s : Shape) (w h : ℝ) : ℝ :=
+  w + 3 * s.alpha - 2 * s.alpha * s.circularOuter * h
+
+end Shape
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/EndpointBounds.lean
+========================================================================
+/- H2 uncompiled candidate. Algebraic global bounds, with no calculus/KKT. -/
+import HohmannOptimality.Shape
+
+noncomputable section
+namespace HohmannOptimality
+open Shape
+
+/-- Exact nonnegative certificate on the h ≤ hH half-plane. -/
+lemma gap₁_low (s : Shape) (w h : ℝ) :
+    s.burnSquare₁ w h - s.burnH₁ ^ 2 =
+      (w + 2*s.alpha - s.alpha^2*h^2) +
+      (s.hH-h)*(2-s.alpha^2*(h+s.hH)) := by
+  dsimp [burnSquare₁, burnH₁]
+  nlinarith [s.corner_relation]
+
+lemma gap₁_high (s : Shape) (w h : ℝ) :
+    s.burnSquare₁ w h - s.burnH₁ ^ 2 =
+      (w+2-h^2) + (h-s.hH)*(h+s.hH-2) := by
+  dsimp [burnSquare₁, burnH₁]
+  ring
+
+lemma gap₂_low (s : Shape) (w h : ℝ) :
+    s.burnSquare₂ w h - s.burnH₂ ^ 2 =
+      (w+2*s.alpha-s.alpha^2*h^2) +
+      s.alpha*(s.hH-h)*(2*s.circularOuter-s.alpha*(h+s.hH)) := by
+  dsimp [burnSquare₂, burnH₂]
+  nlinarith [s.c_sq]
+
+lemma gap₂_high (s : Shape) (w h : ℝ) :
+    s.burnSquare₂ w h - s.burnH₂ ^ 2 =
+      (w+2-h^2) + (h-s.hH)*(h+s.hH-2*s.alpha*s.circularOuter) := by
+  dsimp [burnSquare₂, burnH₂]
+  nlinarith [s.c_sq, s.corner_relation]
+
+lemma low_factor₁_pos (s : Shape) {h : ℝ} (hh : h ≤ s.hH) :
+    0 < 2 - s.alpha^2*(h+s.hH) := by
+  have hm := mul_le_mul_of_nonneg_left hh (sq_nonneg s.alpha)
+  nlinarith [s.alpha_sq_h_lt_one]
+lemma low_factor₂_pos (s : Shape) {h : ℝ} (hh : h ≤ s.hH) :
+    0 < 2*s.circularOuter-s.alpha*(h+s.hH) := by
+  have hm := mul_le_mul_of_nonneg_left hh (le_of_lt s.alpha_pos)
+  nlinarith [s.alpha_h_lt_c]
+lemma high_factor₁_pos (s : Shape) {h : ℝ} (hh : s.hH ≤ h) :
+    0 < h+s.hH-2 := by linarith [s.one_lt_h]
+lemma high_factor₂_pos (s : Shape) {h : ℝ} (hh : s.hH ≤ h) :
+    0 < h+s.hH-2*s.alpha*s.circularOuter := by linarith [s.alpha_c_lt_h]
+
+/-- Every feasible competitor pays at least the Hohmann first impulse. -/
+theorem first_square_lower_bound (s : Shape) {w h : ℝ} (hf : s.Feasible w h) :
+    s.burnH₁ ^ 2 ≤ s.burnSquare₁ w h := by
+  by_cases hh : h ≤ s.hH
+  · have hp := mul_nonneg (sub_nonneg.mpr hh) (le_of_lt (low_factor₁_pos s hh))
+    have hs := sub_nonneg.mpr hf.2
+    have hid := gap₁_low s w h
+    linarith
+  · have hh' : s.hH ≤ h := le_of_lt (lt_of_not_ge hh)
+    have hp := mul_nonneg (sub_nonneg.mpr hh') (le_of_lt (high_factor₁_pos s hh'))
+    have hs := sub_nonneg.mpr hf.1
+    have hid := gap₁_high s w h
+    linarith
+
+/-- The second impulse separately also attains its global minimum at Hohmann. -/
+theorem second_square_lower_bound (s : Shape) {w h : ℝ} (hf : s.Feasible w h) :
+    s.burnH₂ ^ 2 ≤ s.burnSquare₂ w h := by
+  by_cases hh : h ≤ s.hH
+  · have hp := mul_nonneg
+      (mul_nonneg (le_of_lt s.alpha_pos) (sub_nonneg.mpr hh))
+      (le_of_lt (low_factor₂_pos s hh))
+    have hs := sub_nonneg.mpr hf.2
+    have hid := gap₂_low s w h
+    linarith
+  · have hh' : s.hH ≤ h := le_of_lt (lt_of_not_ge hh)
+    have hp := mul_nonneg (sub_nonneg.mpr hh') (le_of_lt (high_factor₂_pos s hh'))
+    have hs := sub_nonneg.mpr hf.1
+    have hid := gap₂_high s w h
+    linarith
+
+lemma first_square_strict_of_h_ne (s : Shape) {w h : ℝ}
+    (hf : s.Feasible w h) (hne : h ≠ s.hH) :
+    s.burnH₁ ^ 2 < s.burnSquare₁ w h := by
+  rcases lt_or_gt_of_ne hne with hh | hh
+  · have hp := mul_pos (sub_pos.mpr hh) (low_factor₁_pos s (le_of_lt hh))
+    have hid := gap₁_low s w h
+    linarith [hf.2]
+  · have hp := mul_pos (sub_pos.mpr hh) (high_factor₁_pos s (le_of_lt hh))
+    have hid := gap₁_high s w h
+    linarith [hf.1]
+
+/-- The unique minimizer is an invariant pair, not a unique time-parametrized
+trajectory: rotations and extra revolutions still have the same cost. -/
+theorem invariant_pair_of_first_square_eq (s : Shape) {w h : ℝ}
+    (hf : s.Feasible w h) (heq : s.burnSquare₁ w h = s.burnH₁^2) :
+    h = s.hH ∧ w = s.energyH := by
+  have hh : h = s.hH := by
+    by_contra hn
+    have hs := first_square_strict_of_h_ne s hf hn
+    linarith
+  refine ⟨hh, ?_⟩
+  rw [hh] at heq
+  dsimp [burnSquare₁, burnH₁, energyH] at *
+  nlinarith
+
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/EndpointOptimality.lean
+========================================================================
+/- H2 uncompiled candidate. Endpoints allow radial velocity and signed momentum. -/
+import HohmannOptimality.EndpointBounds
+
+noncomputable section
+namespace HohmannOptimality
+open Shape
+
+/-- Two endpoint velocities in their own oriented radial/tangential frames.
+The two conservation equalities are endpoint constraints, NOT a theorem that
+arbitrary supplied data form a Kepler arc. Newton arcs are connected separately. -/
+structure EndpointData (s : Shape) where
+  radial₁ : ℝ
+  tangent₁ : ℝ
+  radial₂ : ℝ
+  tangent₂ : ℝ
+  angular : tangent₂ = s.alpha * tangent₁
+  energy : radial₁^2+tangent₁^2-2 = radial₂^2+tangent₂^2-2*s.alpha
+
+namespace EndpointData
+
+def w {s : Shape} (z : EndpointData s) : ℝ := z.radial₁^2+z.tangent₁^2-2
+def impulse₁ {s : Shape} (z : EndpointData s) : ℝ :=
+  Real.sqrt (z.radial₁^2+(z.tangent₁-1)^2)
+def impulse₂ {s : Shape} (z : EndpointData s) : ℝ :=
+  Real.sqrt (z.radial₂^2+(z.tangent₂-s.circularOuter)^2)
+def cost {s : Shape} (z : EndpointData s) : ℝ := z.impulse₁ + z.impulse₂
+
+lemma feasible {s : Shape} (z : EndpointData s) : s.Feasible z.w z.tangent₁ := by
+  constructor
+  · dsimp [w]; nlinarith [sq_nonneg z.radial₁]
+  · have he := z.energy
+    rw [z.angular] at he
+    dsimp [w]
+    nlinarith [sq_nonneg z.radial₂]
+lemma impulse₁_nonneg {s : Shape} (z : EndpointData s) : 0 ≤ z.impulse₁ :=
+  Real.sqrt_nonneg _
+lemma impulse₂_nonneg {s : Shape} (z : EndpointData s) : 0 ≤ z.impulse₂ :=
+  Real.sqrt_nonneg _
+lemma impulse₁_sq {s : Shape} (z : EndpointData s) :
+    z.impulse₁^2 = z.radial₁^2+(z.tangent₁-1)^2 :=
+  Real.sq_sqrt (add_nonneg (sq_nonneg _) (sq_nonneg _))
+lemma impulse₂_sq {s : Shape} (z : EndpointData s) :
+    z.impulse₂^2 = z.radial₂^2+(z.tangent₂-s.circularOuter)^2 :=
+  Real.sq_sqrt (add_nonneg (sq_nonneg _) (sq_nonneg _))
+lemma impulse₁_sq_invariant {s : Shape} (z : EndpointData s) :
+    z.impulse₁^2 = s.burnSquare₁ z.w z.tangent₁ := by
+  rw [z.impulse₁_sq]
+  dsimp [w, burnSquare₁]
+  ring
+lemma impulse₂_sq_invariant {s : Shape} (z : EndpointData s) :
+    z.impulse₂^2 = s.burnSquare₂ z.w z.tangent₁ := by
+  rw [z.impulse₂_sq, z.angular]
+  have he := z.energy
+  rw [z.angular] at he
+  dsimp [w, burnSquare₂]
+  nlinarith [s.c_sq]
+
+end EndpointData
+
+/-- A global inequality over ALL feasible endpoint velocities, not merely a
+stationary-point or small-perturbation calculation. -/
+theorem endpoint_impulses_lower_bound (s : Shape) (z : EndpointData s) :
+    s.burnH₁ ≤ z.impulse₁ ∧ s.burnH₂ ≤ z.impulse₂ := by
+  have h₁ := first_square_lower_bound s z.feasible
+  have h₂ := second_square_lower_bound s z.feasible
+  rw [← z.impulse₁_sq_invariant] at h₁
+  rw [← z.impulse₂_sq_invariant] at h₂
+  constructor
+  · nlinarith [s.burnH₁_pos, z.impulse₁_nonneg]
+  · nlinarith [s.burnH₂_pos, z.impulse₂_nonneg]
+
+theorem endpoint_total_lower_bound (s : Shape) (z : EndpointData s) :
+    s.costH ≤ z.cost := by
+  have h := endpoint_impulses_lower_bound s z
+  exact add_le_add h.1 h.2
+
+/-- A feasible corner achieving the lower bound; physical attainment is H1. -/
+def hohmannEndpoints (s : Shape) : EndpointData s where
+  radial₁ := 0
+  tangent₁ := s.hH
+  radial₂ := 0
+  tangent₂ := s.alpha*s.hH
+  angular := rfl
+  energy := by nlinarith [s.corner_relation]
+
+lemma hohmannEndpoints_cost (s : Shape) : (hohmannEndpoints s).cost = s.costH := by
+  have h₁ : (hohmannEndpoints s).impulse₁ = s.burnH₁ := by
+    have hs := (hohmannEndpoints s).impulse₁_sq
+    have hn := (hohmannEndpoints s).impulse₁_nonneg
+    dsimp [hohmannEndpoints, burnH₁] at *
+    nlinarith [s.one_lt_h]
+  have h₂ : (hohmannEndpoints s).impulse₂ = s.burnH₂ := by
+    have hs := (hohmannEndpoints s).impulse₂_sq
+    have hn := (hohmannEndpoints s).impulse₂_nonneg
+    dsimp [hohmannEndpoints, burnH₂] at *
+    nlinarith [s.alpha_h_lt_c]
+  exact congrArg₂ (· + ·) h₁ h₂
+
+/-- Equality forces both endpoint radial velocities to vanish and fixes signed
+angular momentum. No claim of uniqueness of flight time or orientation. -/
+theorem endpoint_equality_characterization (s : Shape) (z : EndpointData s)
+    (heq : z.cost = s.costH) :
+    z.tangent₁ = s.hH ∧ z.tangent₂ = s.alpha*s.hH ∧
+      z.radial₁ = 0 ∧ z.radial₂ = 0 := by
+  have hb := endpoint_impulses_lower_bound s z
+  have he₁ : z.impulse₁ = s.burnH₁ := by
+    dsimp [EndpointData.cost, costH] at heq
+    linarith
+  have hs : s.burnSquare₁ z.w z.tangent₁ = s.burnH₁^2 := by
+    rw [← z.impulse₁_sq_invariant, he₁]
+  have pair := invariant_pair_of_first_square_eq s z.feasible hs
+  have htan₂ : z.tangent₂ = s.alpha*s.hH := by rw [z.angular, pair.1]
+  have hu : z.radial₁=0 := by
+    have hw := pair.2
+    dsimp [EndpointData.w, energyH] at hw
+    rw [pair.1] at hw
+    nlinarith [sq_nonneg z.radial₁]
+  have hv : z.radial₂=0 := by
+    have he := z.energy
+    rw [hu, pair.1, htan₂] at he
+    nlinarith [s.corner_relation, sq_nonneg z.radial₂]
+  exact ⟨pair.1, htan₂, hu, hv⟩
+
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/PhysicalUnits.lean
+========================================================================
+/- H2 uncompiled candidate. Restore arbitrary positive μ and length scale. -/
+import HohmannOptimality.EndpointOptimality
+
+noncomputable section
+namespace HohmannOptimality
+
+structure Units where
+  mu : ℝ
+  r₁ : ℝ
+  r₂ : ℝ
+  mu_pos : 0 < mu
+  r₁_pos : 0 < r₁
+  outward : r₁ < r₂
+
+namespace Units
+
+lemma r₂_pos (p : Units) : 0 < p.r₂ := lt_trans p.r₁_pos p.outward
+lemma r₁_ne (p : Units) : p.r₁ ≠ 0 := ne_of_gt p.r₁_pos
+lemma r₂_ne (p : Units) : p.r₂ ≠ 0 := ne_of_gt p.r₂_pos
+
+def shape (p : Units) : Shape where
+  alpha := p.r₁/p.r₂
+  alpha_pos := div_pos p.r₁_pos p.r₂_pos
+  alpha_lt_one := (div_lt_one p.r₂_pos).2 p.outward
+
+def speed (p : Units) : ℝ := Real.sqrt (p.mu/p.r₁)
+def circular₂ (p : Units) : ℝ := p.speed*p.shape.circularOuter
+def bound (p : Units) : ℝ := p.speed*p.shape.costH
+
+lemma speed_pos (p : Units) : 0 < p.speed := Real.sqrt_pos.2 (div_pos p.mu_pos p.r₁_pos)
+lemma speed_ne (p : Units) : p.speed ≠ 0 := ne_of_gt p.speed_pos
+lemma speed_sq (p : Units) : p.speed^2 = p.mu/p.r₁ :=
+  Real.sq_sqrt (le_of_lt (div_pos p.mu_pos p.r₁_pos))
+lemma mu_over_r₂ (p : Units) : p.mu/p.r₂ = p.shape.alpha*p.speed^2 := by
+  rw [p.speed_sq]
+  dsimp [shape]
+  field_simp [p.r₁_ne, p.r₂_ne]
+
+lemma circular₂_eq_sqrt (p : Units) : p.circular₂ = Real.sqrt (p.mu/p.r₂) := by
+  have hs : p.circular₂^2 = p.mu/p.r₂ := by
+    dsimp [circular₂]
+    rw [mul_pow, p.shape.c_sq, p.mu_over_r₂]
+    ring
+  have hn := mul_pos p.speed_pos p.shape.c_pos
+  have hq := Real.sq_sqrt (le_of_lt (div_pos p.mu_pos p.r₂_pos))
+  have hr := Real.sqrt_nonneg (p.mu/p.r₂)
+  dsimp [circular₂] at *
+  nlinarith
+
+end Units
+
+structure PhysicalEndpoints (p : Units) where
+  radial₁ : ℝ
+  tangent₁ : ℝ
+  radial₂ : ℝ
+  tangent₂ : ℝ
+  angular : p.r₁*tangent₁ = p.r₂*tangent₂
+  energy : radial₁^2+tangent₁^2-2*p.mu/p.r₁ =
+    radial₂^2+tangent₂^2-2*p.mu/p.r₂
+
+namespace PhysicalEndpoints
+
+def cost {p : Units} (z : PhysicalEndpoints p) : ℝ :=
+  Real.sqrt (z.radial₁^2+(z.tangent₁-p.speed)^2) +
+  Real.sqrt (z.radial₂^2+(z.tangent₂-p.circular₂)^2)
+
+def normalized {p : Units} (z : PhysicalEndpoints p) : EndpointData p.shape where
+  radial₁ := z.radial₁/p.speed
+  tangent₁ := z.tangent₁/p.speed
+  radial₂ := z.radial₂/p.speed
+  tangent₂ := z.tangent₂/p.speed
+  angular := by
+    change z.tangent₂/p.speed = (p.r₁/p.r₂)*(z.tangent₁/p.speed)
+    field_simp [p.speed_ne, p.r₂_ne]
+    nlinarith [z.angular]
+  energy := by
+    have he := z.energy
+    have he' : z.radial₁^2+z.tangent₁^2-2*p.speed^2 =
+        z.radial₂^2+z.tangent₂^2-2*p.shape.alpha*p.speed^2 := by
+      calc
+        _ = z.radial₁^2+z.tangent₁^2-2*p.mu/p.r₁ := by rw [p.speed_sq]; ring
+        _ = z.radial₂^2+z.tangent₂^2-2*p.mu/p.r₂ := he
+        _ = _ := by rw [show 2*p.mu/p.r₂=2*(p.mu/p.r₂) by ring, p.mu_over_r₂]; ring
+    field_simp [p.speed_ne]
+    nlinarith [he']
+
+lemma norm_scale (a b v : ℝ) (hv : 0 < v) :
+    v*Real.sqrt ((a/v)^2+(b/v)^2) = Real.sqrt (a^2+b^2) := by
+  have h₁ := Real.sq_sqrt (add_nonneg (sq_nonneg (a/v)) (sq_nonneg (b/v)))
+  have h₂ := Real.sq_sqrt (add_nonneg (sq_nonneg a) (sq_nonneg b))
+  have hs : (v*Real.sqrt ((a/v)^2+(b/v)^2))^2 = a^2+b^2 := by
+    rw [mul_pow, h₁]
+    field_simp [ne_of_gt hv]
+
+  have hn := mul_nonneg (le_of_lt hv) (Real.sqrt_nonneg ((a/v)^2+(b/v)^2))
+  nlinarith [Real.sqrt_nonneg (a^2+b^2)]
+
+lemma cost_eq_scaled {p : Units} (z : PhysicalEndpoints p) :
+    z.cost = p.speed*z.normalized.cost := by
+  dsimp [cost, normalized, EndpointData.cost, EndpointData.impulse₁, EndpointData.impulse₂]
+  rw [mul_add]
+  have h₁ : z.tangent₁/p.speed-1=(z.tangent₁-p.speed)/p.speed := by
+    field_simp [p.speed_ne]
+  have h₂ : z.tangent₂/p.speed-p.shape.circularOuter =
+      (z.tangent₂-p.circular₂)/p.speed := by
+    dsimp [Units.circular₂]
+    field_simp [p.speed_ne]
+  rw [h₁, h₂, norm_scale _ _ _ p.speed_pos, norm_scale _ _ _ p.speed_pos]
+
+theorem physical_lower_bound {p : Units} (z : PhysicalEndpoints p) : p.bound ≤ z.cost := by
+  rw [z.cost_eq_scaled]
+  exact mul_le_mul_of_nonneg_left (endpoint_total_lower_bound p.shape z.normalized)
+    (le_of_lt p.speed_pos)
+
+end PhysicalEndpoints
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/PlanarState.lean
+========================================================================
+/- H2 uncompiled candidate. Euclidean, NOT a product-type sup-norm. -/
+import HohmannOptimality.PhysicalUnits
+
+noncomputable section
+namespace HohmannOptimality
+
+structure PlanarState where
+  x : ℝ
+  y : ℝ
+  vx : ℝ
+  vy : ℝ
+
+namespace PlanarState
+
+def radius (z : PlanarState) : ℝ := Real.sqrt (z.x^2+z.y^2)
+def angular (z : PlanarState) : ℝ := z.x*z.vy-z.y*z.vx
+def radial (z : PlanarState) : ℝ := (z.x*z.vx+z.y*z.vy)/z.radius
+def tangent (z : PlanarState) : ℝ := z.angular/z.radius
+def energy (z : PlanarState) (mu : ℝ) : ℝ := z.vx^2+z.vy^2-2*mu/z.radius
+/-- Actual Cartesian speed change to/from the same prograde circular velocity. -/
+def impulse (z : PlanarState) (c : ℝ) : ℝ :=
+  Real.sqrt ((z.vx+c*z.y/z.radius)^2+(z.vy-c*z.x/z.radius)^2)
+
+lemma radius_sq (z : PlanarState) : z.radius^2=z.x^2+z.y^2 :=
+  Real.sq_sqrt (add_nonneg (sq_nonneg _) (sq_nonneg _))
+lemma radius_mul_tangent (z : PlanarState) (hr : 0 < z.radius) :
+    z.radius*z.tangent = z.angular := by
+  dsimp [tangent]
+  field_simp [ne_of_gt hr]
+lemma polar_speed_sq (z : PlanarState) (hr : 0 < z.radius) :
+    z.radial^2+z.tangent^2=z.vx^2+z.vy^2 := by
+  have hi : (z.x*z.vx+z.y*z.vy)^2+(z.x*z.vy-z.y*z.vx)^2 =
+      (z.x^2+z.y^2)*(z.vx^2+z.vy^2) := by ring
+  dsimp [radial, tangent, angular]
+  field_simp [ne_of_gt hr]
+  nlinarith [congrArg (fun u : ℝ => u*(z.vx^2+z.vy^2)) z.radius_sq]
+lemma impulse_polar (z : PlanarState) (c : ℝ) (hr : 0 < z.radius) :
+    z.impulse c = Real.sqrt (z.radial^2+(z.tangent-c)^2) := by
+  unfold impulse
+  congr 1
+  dsimp [radial, tangent, angular]
+  field_simp [ne_of_gt hr]
+  nlinarith [congrArg (fun u : ℝ => u*(z.vx^2+z.vy^2-c^2)) z.radius_sq]
+
+end PlanarState
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/KeplerConservation.lean
+========================================================================
+/- H2 uncompiled candidate. Conservation is DERIVED from genuine derivatives.
+Only the smooth coast interval is modeled; impulses are endpoint velocity jumps.
+-/
+import HohmannOptimality.PlanarState
+
+noncomputable section
+namespace HohmannOptimality
+open Set
+
+structure KeplerArc (mu : ℝ) where
+  t₀ : ℝ
+  t₁ : ℝ
+  time_order : t₀ < t₁
+  x : ℝ → ℝ
+  y : ℝ → ℝ
+  vx : ℝ → ℝ
+  vy : ℝ → ℝ
+  radius_pos : ∀ t ∈ Icc t₀ t₁, 0 < Real.sqrt (x t^2+y t^2)
+  dx : ∀ t ∈ Icc t₀ t₁, HasDerivAt x (vx t) t
+  dy : ∀ t ∈ Icc t₀ t₁, HasDerivAt y (vy t) t
+  dvx : ∀ t ∈ Icc t₀ t₁,
+    HasDerivAt vx (-mu*x t/(Real.sqrt (x t^2+y t^2))^3) t
+  dvy : ∀ t ∈ Icc t₀ t₁,
+    HasDerivAt vy (-mu*y t/(Real.sqrt (x t^2+y t^2))^3) t
+
+namespace KeplerArc
+
+def state {mu : ℝ} (a : KeplerArc mu) (t : ℝ) : PlanarState :=
+  ⟨a.x t,a.y t,a.vx t,a.vy t⟩
+lemma left_mem {mu : ℝ} (a : KeplerArc mu) : a.t₀ ∈ Icc a.t₀ a.t₁ :=
+  ⟨le_rfl, le_of_lt a.time_order⟩
+lemma right_mem {mu : ℝ} (a : KeplerArc mu) : a.t₁ ∈ Icc a.t₀ a.t₁ :=
+  ⟨le_of_lt a.time_order, le_rfl⟩
+
+lemma radius_deriv {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
+    HasDerivAt (fun u => (a.state u).radius)
+      ((a.x t*a.vx t+a.y t*a.vy t)/(a.state t).radius) t := by
+  have hr := a.radius_pos t ht
+  have harg : a.x t^2+a.y t^2 ≠ 0 := by
+    intro hz
+    rw [hz, Real.sqrt_zero] at hr
+    exact (lt_irrefl 0) hr
+  have hd := (((a.dx t ht).pow 2).add ((a.dy t ht).pow 2)).sqrt harg
+  convert hd using 1
+  dsimp [state, PlanarState.radius]
+  field_simp [ne_of_gt hr]
+
+lemma angular_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
+    HasDerivAt (fun u => (a.state u).angular) 0 t := by
+  have hd := ((a.dx t ht).mul (a.dvy t ht)).sub ((a.dy t ht).mul (a.dvx t ht))
+  convert hd using 1
+  field_simp [ne_of_gt (a.radius_pos t ht)]
+  ring
+
+lemma energy_deriv_zero {mu t : ℝ} (a : KeplerArc mu) (ht : t ∈ Icc a.t₀ a.t₁) :
+    HasDerivAt (fun u => (a.state u).energy mu) 0 t := by
+  have hr : (a.state t).radius ≠ 0 := ne_of_gt (a.radius_pos t ht)
+  have hk := ((a.dvx t ht).pow 2).add ((a.dvy t ht).pow 2)
+  have hp := (hasDerivAt_const t (2*mu)).div (a.radius_deriv ht) hr
+  convert hk.sub hp using 1
+  dsimp [state, PlanarState.radius] at hr ⊢
+  field_simp [hr]
+  ring
+
+lemma equal_endpoints_of_zero_deriv {f : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b)
+    (hd : ∀ t ∈ Icc a b, HasDerivAt f 0 t) : f b=f a := by
+  have hc : ContinuousOn f (Icc a b) := by
+    intro t ht
+    exact (hd t ht).continuousAt.continuousWithinAt
+  have hh : ∀ t ∈ Ico a b, HasDerivWithinAt f 0 (Ici t) t := by
+    intro t ht
+    exact (hd t ⟨ht.1, le_of_lt ht.2⟩).hasDerivWithinAt
+  exact constant_of_has_deriv_right_zero hc hh b ⟨hab,le_rfl⟩
+
+theorem energy_conserved {mu : ℝ} (a : KeplerArc mu) :
+    (a.state a.t₀).energy mu = (a.state a.t₁).energy mu := by
+  exact (equal_endpoints_of_zero_deriv (le_of_lt a.time_order)
+    (fun _ ht => a.energy_deriv_zero ht)).symm
+
+theorem angular_conserved {mu : ℝ} (a : KeplerArc mu) :
+    (a.state a.t₀).angular = (a.state a.t₁).angular := by
+  exact (equal_endpoints_of_zero_deriv (le_of_lt a.time_order)
+    (fun _ ht => a.angular_deriv_zero ht)).symm
+
+/-- Obtain endpoint constraints from the actual ODE; no conservation law is an
+input field of KeplerArc. Endpoint orientation and coast time are unrestricted. -/
+def endpoints (p : Units) (a : KeplerArc p.mu)
+    (h₀ : (a.state a.t₀).radius=p.r₁) (h₁ : (a.state a.t₁).radius=p.r₂) :
+    PhysicalEndpoints p where
+  radial₁ := (a.state a.t₀).radial
+  tangent₁ := (a.state a.t₀).tangent
+  radial₂ := (a.state a.t₁).radial
+  tangent₂ := (a.state a.t₁).tangent
+  angular := by
+    rw [← h₀, ← h₁, PlanarState.radius_mul_tangent (a.state a.t₀) (a.radius_pos _ a.left_mem),
+      PlanarState.radius_mul_tangent (a.state a.t₁) (a.radius_pos _ a.right_mem)]
+    exact a.angular_conserved
+  energy := by
+    rw [PlanarState.polar_speed_sq (a.state a.t₀) (a.radius_pos _ a.left_mem),
+      PlanarState.polar_speed_sq (a.state a.t₁) (a.radius_pos _ a.right_mem), ← h₀, ← h₁]
+    exact a.energy_conserved
+
+/-- Global two-impulse lower bound for every noncollision Newtonian coast arc.
+No tangency, ellipse, energy sign or positive angular momentum is assumed. -/
+theorem newton_arc_lower_bound (p : Units) (a : KeplerArc p.mu)
+    (h₀ : (a.state a.t₀).radius=p.r₁) (h₁ : (a.state a.t₁).radius=p.r₂) :
+    p.bound ≤ (a.state a.t₀).impulse p.speed + (a.state a.t₁).impulse p.circular₂ := by
+  rw [PlanarState.impulse_polar (a.state a.t₀) _ (a.radius_pos _ a.left_mem),
+    PlanarState.impulse_polar (a.state a.t₁) _ (a.radius_pos _ a.right_mem)]
+  exact (endpoints p a h₀ h₁).physical_lower_bound
+
+/-- Equality of the actual Cartesian cost forces the Hohmann endpoint velocities. -/
+theorem newton_arc_equality_endpoints (p : Units) (a : KeplerArc p.mu)
+    (h₀ : (a.state a.t₀).radius = p.r₁) (h₁ : (a.state a.t₁).radius = p.r₂)
+    (he : (a.state a.t₀).impulse p.speed + (a.state a.t₁).impulse p.circular₂ = p.bound) :
+    (a.state a.t₀).radial = 0 ∧ (a.state a.t₁).radial = 0 ∧
+    (a.state a.t₀).tangent = p.speed * p.shape.hH ∧
+    (a.state a.t₁).tangent = p.speed * (p.shape.alpha * p.shape.hH) := by
+  let z := endpoints p a h₀ h₁
+  rw [PlanarState.impulse_polar (a.state a.t₀) _ (a.radius_pos _ a.left_mem),
+    PlanarState.impulse_polar (a.state a.t₁) _ (a.radius_pos _ a.right_mem)] at he
+  change z.cost = p.speed * p.shape.costH at he
+  rw [z.cost_eq_scaled] at he
+  have hnorm := mul_left_cancel₀ p.speed_ne he
+  obtain ⟨ht₁, ht₂, hu₁, hu₂⟩ := endpoint_equality_characterization p.shape z.normalized hnorm
+  change (a.state a.t₀).tangent / p.speed = p.shape.hH at ht₁
+  change (a.state a.t₁).tangent / p.speed = p.shape.alpha * p.shape.hH at ht₂
+  change (a.state a.t₀).radial / p.speed = 0 at hu₁
+  change (a.state a.t₁).radial / p.speed = 0 at hu₂
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · simpa only [zero_mul] using (div_eq_iff p.speed_ne).1 hu₁
+  · simpa only [zero_mul] using (div_eq_iff p.speed_ne).1 hu₂
+  · exact ((div_eq_iff p.speed_ne).1 ht₁).trans (mul_comm _ _)
+  · exact ((div_eq_iff p.speed_ne).1 ht₂).trans (mul_comm _ _)
+
+end KeplerArc
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/Bielliptic.lean
+========================================================================
+/- H2 uncompiled candidate. A finite three-burn competitor, not an infinite limit. -/
+import HohmannOptimality.Shape
+
+noncomputable section
+namespace HohmannOptimality
+namespace Bielliptic
+
+/-- Normalized radii: departure 1, target R, common apocentre B. -/
+structure Parameters where
+  R : ℝ
+  B : ℝ
+  one_lt_R : 1 < R
+  R_lt_B : R < B
+
+/-- First ellipse periapsis speed. -/
+def departureSpeed (p : Parameters) : ℝ := Real.sqrt (2*p.B/(1+p.B))
+/-- Second ellipse periapsis speed at the final radius. -/
+def arrivalSpeed (p : Parameters) : ℝ := Real.sqrt (2*p.B/(p.R*(p.R+p.B)))
+def firstApoSpeed (p : Parameters) : ℝ := departureSpeed p / p.B
+def secondApoSpeed (p : Parameters) : ℝ := p.R*arrivalSpeed p / p.B
+/-- Three actual speed-jump magnitudes; the final burn is retrograde. -/
+def cost (p : Parameters) : ℝ :=
+  |departureSpeed p - 1| + |secondApoSpeed p - firstApoSpeed p| +
+  |arrivalSpeed p - 1/Real.sqrt p.R|
+
+def hohmannPeri (R : ℝ) : ℝ := Real.sqrt (2*R/(1+R))
+def hohmannCost (R : ℝ) : ℝ :=
+  |hohmannPeri R-1| + |1/Real.sqrt R-hohmannPeri R/R|
+
+def time (p : Parameters) : ℝ :=
+  Real.pi*(Real.sqrt (((1+p.B)/2)^3)+Real.sqrt (((p.R+p.B)/2)^3))
+def hohmannTime (R : ℝ) : ℝ := Real.pi*Real.sqrt (((1+R)/2)^3)
+
+lemma cost_nonneg (p : Parameters) : 0 ≤ cost p := by
+  unfold cost
+  positivity
+lemma time_pos (p : Parameters) : 0 < time p := by
+  have hR : 0 < p.R := lt_trans (by norm_num) p.one_lt_R
+  have hB : 0 < p.B := lt_trans hR p.R_lt_B
+  unfold time
+  positivity
+
+/-- Concrete finite-radius witness. -/
+def «example» : Parameters := ⟨16,64,by norm_num,by norm_num⟩
+
+lemma example_departure : departureSpeed «example» = Real.sqrt (128/65 : ℝ) := by
+  norm_num [departureSpeed, «example»]
+lemma example_arrival : arrivalSpeed «example» = Real.sqrt (1/10 : ℝ) := by
+  norm_num [arrivalSpeed, «example»]
+lemma example_hohmann : hohmannPeri 16 = Real.sqrt (32/17 : ℝ) := by
+  norm_num [hohmannPeri]
+
+/-- Rational squared bounds; no floating-point/native evaluation is involved. -/
+lemma sqrt_rational_interval {x l u : ℝ} (hl : 0 ≤ l) (hu : 0 ≤ u)
+    (hlo : l^2 ≤ x) (hhi : x ≤ u^2) : l ≤ Real.sqrt x ∧ Real.sqrt x ≤ u := by
+  have hx : 0 ≤ x := le_trans (sq_nonneg l) hlo
+  have hs := Real.sq_sqrt hx
+  have hn := Real.sqrt_nonneg x
+  constructor <;> nlinarith
+
+lemma example_root_H_bounds :
+    (13719/10000 : ℝ) ≤ Real.sqrt (32/17 : ℝ) ∧
+      Real.sqrt (32/17 : ℝ) ≤ (1372/1000 : ℝ) := by
+  apply sqrt_rational_interval <;> norm_num
+lemma example_root_A_bounds :
+    (7/5 : ℝ) ≤ Real.sqrt (128/65 : ℝ) ∧
+      Real.sqrt (128/65 : ℝ) ≤ (14033/10000 : ℝ) := by
+  apply sqrt_rational_interval <;> norm_num
+lemma example_root_D_bounds :
+    (31/100 : ℝ) ≤ Real.sqrt (1/10 : ℝ) ∧
+      Real.sqrt (1/10 : ℝ) ≤ (31623/100000 : ℝ) := by
+  apply sqrt_rational_interval <;> norm_num
+
+lemma example_cost_closed : cost «example» =
+    (63/64 : ℝ)*Real.sqrt (128/65 : ℝ) +
+      (5/4 : ℝ)*Real.sqrt (1/10 : ℝ) - (5/4 : ℝ) := by
+  have hA := example_root_A_bounds
+  have hD := example_root_D_bounds
+  have h₁ : 0 ≤ Real.sqrt (128/65 : ℝ)-1 := by linarith
+  have h₂ : 0 ≤ Real.sqrt (1/10 : ℝ)/4-Real.sqrt (128/65 : ℝ)/64 := by linarith
+  have h₃ : 0 ≤ Real.sqrt (1/10 : ℝ)-(1/4 : ℝ) := by linarith
+  unfold cost firstApoSpeed secondApoSpeed
+  rw [example_departure, example_arrival]
+  change |Real.sqrt (128/65 : ℝ)-1| +
+    |16*Real.sqrt (1/10 : ℝ)/64-Real.sqrt (128/65 : ℝ)/64| +
+    |Real.sqrt (1/10 : ℝ)-1/Real.sqrt 16| = _
+  rw [show Real.sqrt (16 : ℝ) = 4 by norm_num]
+  rw [show 16*Real.sqrt (1/10 : ℝ)/64=Real.sqrt (1/10 : ℝ)/4 by ring,
+    abs_of_nonneg h₁, abs_of_nonneg h₂, abs_of_nonneg h₃]
+  ring
+
+lemma example_hohmann_closed : hohmannCost 16 =
+    (15/16 : ℝ)*Real.sqrt (32/17 : ℝ)-(3/4 : ℝ) := by
+  have hH := example_root_H_bounds
+  have h₁ : 0 ≤ Real.sqrt (32/17 : ℝ)-1 := by linarith
+  have h₂ : 0 ≤ (1/4 : ℝ)-Real.sqrt (32/17 : ℝ)/16 := by linarith
+  unfold hohmannCost
+  rw [example_hohmann, show Real.sqrt (16 : ℝ) = 4 by norm_num]
+  rw [abs_of_nonneg h₁, abs_of_nonneg h₂]
+  ring
+
+/-- Exact strict margin: over 0.009 times the departure circular speed. -/
+theorem finite_bielliptic_saves_deltaV :
+    (9/1000 : ℝ) < hohmannCost 16 - cost «example» := by
+  rw [example_hohmann_closed, example_cost_closed]
+  have hH := example_root_H_bounds
+  have hA := example_root_A_bounds
+  have hD := example_root_D_bounds
+  linarith
+
+theorem finite_bielliptic_beats_hohmann : cost «example» < hohmannCost 16 := by
+  linarith [finite_bielliptic_saves_deltaV]
+
+/-- This refutes an unrestricted optimality claim already in a small subclass
+of three-burn transfers. It does not identify the all-impulse global optimum. -/
+theorem not_universally_best_against_bielliptic :
+    ¬ (∀ p : Parameters, hohmannCost p.R ≤ cost p) := by
+  intro h
+  have hbad := h «example»
+  have hgood := finite_bielliptic_beats_hohmann
+  change hohmannCost 16 ≤ cost «example» at hbad
+  linarith
+
+theorem scaled_counterexample {v : ℝ} (hv : 0 < v) :
+    v*cost «example» < v*hohmannCost 16 :=
+  mul_lt_mul_of_pos_left finite_bielliptic_beats_hohmann hv
+
+end Bielliptic
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/Fuel.lean
+========================================================================
+/- H2 uncompiled candidate. Delta-v is not generally identical to propellant.
+This corollary uses one ideal stage, fixed exhaust speed, same initial mass,
+no staging/dry-mass changes/refuelling and no other propellant expenditure.
+-/
+import HohmannOptimality.KeplerConservation
+import HohmannOptimality.Bielliptic
+
+noncomputable section
+namespace HohmannOptimality
+
+def idealPropellantFraction (exhaustSpeed deltaV : ℝ) : ℝ :=
+  1 - Real.exp (-deltaV/exhaustSpeed)
+
+lemma idealPropellantFraction_mono {ve d₁ d₂ : ℝ} (hve : 0 < ve) (hd : d₁ ≤ d₂) :
+    idealPropellantFraction ve d₁ ≤ idealPropellantFraction ve d₂ := by
+  have hdiv : -d₂/ve ≤ -d₁/ve :=
+    (div_le_div_iff_of_pos_right hve).2 (neg_le_neg hd)
+  have he := Real.exp_le_exp.mpr hdiv
+  dsimp [idealPropellantFraction]
+  linarith
+
+lemma idealPropellantFraction_strict {ve d₁ d₂ : ℝ} (hve : 0 < ve) (hd : d₁ < d₂) :
+    idealPropellantFraction ve d₁ < idealPropellantFraction ve d₂ := by
+  have hdiv : -d₂/ve < -d₁/ve :=
+    (div_lt_div_iff_of_pos_right hve).2 (neg_lt_neg hd)
+  have he := Real.exp_lt_exp.mpr hdiv
+  dsimp [idealPropellantFraction]
+  linarith
+
+/-- Equal exhaust speed makes multiplying burn mass ratios equivalent to using
+sum delta-v; this is the ONLY fuel interpretation used here. -/
+lemma remaining_fraction_two_burns (ve d₁ d₂ : ℝ) :
+    Real.exp (-d₁/ve)*Real.exp (-d₂/ve) = Real.exp (-(d₁+d₂)/ve) := by
+  rw [← Real.exp_add]
+  congr 1
+  ring
+
+theorem newton_arc_ideal_fuel_lower_bound (p : Units) (a : KeplerArc p.mu)
+    (h₀ : (a.state a.t₀).radius=p.r₁) (h₁ : (a.state a.t₁).radius=p.r₂)
+    {ve : ℝ} (hve : 0 < ve) :
+    idealPropellantFraction ve p.bound ≤ idealPropellantFraction ve
+      ((a.state a.t₀).impulse p.speed+(a.state a.t₁).impulse p.circular₂) :=
+  idealPropellantFraction_mono hve (KeplerArc.newton_arc_lower_bound p a h₀ h₁)
+
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/PublicStatement.lean
+========================================================================
+/- H2 uncompiled candidate. Freeze theorem headers before local repair. -/
+import HohmannOptimality.Fuel
+
+noncomputable section
+namespace HohmannOptimality
+
+/-- Global means all feasible TWO-impulse, coplanar, co-oriented circle-to-circle
+transfers, with free departure phase and flight time. A coast may have radial
+velocity, negative momentum, or nonnegative energy. No third burn is allowed. -/
+theorem global_two_impulse_endpoint_optimality (s : Shape) :
+    (∀ z : EndpointData s, s.costH ≤ z.cost) ∧
+    (hohmannEndpoints s).cost=s.costH ∧
+    (∀ z : EndpointData s, z.cost=s.costH →
+      z.tangent₁=s.hH ∧ z.tangent₂=s.alpha*s.hH ∧
+      z.radial₁=0 ∧ z.radial₂=0) := by
+  exact ⟨endpoint_total_lower_bound s, hohmannEndpoints_cost s,
+    endpoint_equality_characterization s⟩
+
+/-- The global inequality applies to genuinely differentiable Newtonian coast
+arcs; conservation is proved in KeplerConservation rather than postulated. -/
+theorem global_two_impulse_newton_lower_bound (p : Units) (a : KeplerArc p.mu)
+    (h₀ : (a.state a.t₀).radius=p.r₁) (h₁ : (a.state a.t₁).radius=p.r₂) :
+    p.bound ≤ (a.state a.t₀).impulse p.speed+(a.state a.t₁).impulse p.circular₂ :=
+  KeplerArc.newton_arc_lower_bound p a h₀ h₁
+
+/-- An unrestricted all-maneuver assertion is false: a finite 1→64→16
+bielliptic construction has strictly smaller delta-v than Hohmann 1→16. -/
+theorem finite_three_impulse_counterexample :
+    (9/1000 : ℝ) < Bielliptic.hohmannCost 16 - Bielliptic.cost Bielliptic.«example» :=
+  Bielliptic.finite_bielliptic_saves_deltaV
+
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/H1Bridge.lean
+========================================================================
+/- H2 uncompiled candidate. H1 sources are copied byte-for-byte, not re-certified.
+This optional layer ties the independent lower bound to H1's physical witness.
+-/
+import HohmannOptimality.PublicStatement
+import HohmannTransfer.PublicStatement
+
+noncomputable section
+namespace HohmannOptimality
+
+/-- Data conversion only; no optimality assumption is added to H1. -/
+def unitsOfH1 (p : HohmannTransfer.Parameters) : Units :=
+  ⟨p.mu,p.r₁,p.r₂,p.mu_pos,p.r₁_pos,p.outward⟩
+
+lemma h1_speed (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).speed=HohmannTransfer.circularSpeed p.mu p.r₁ := rfl
+lemma h1_outer_speed (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).circular₂=HohmannTransfer.circularSpeed p.mu p.r₂ :=
+  (unitsOfH1 p).circular₂_eq_sqrt
+
+lemma h1_peri_speed (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).speed*(unitsOfH1 p).shape.hH=HohmannTransfer.periSpeed p := by
+  let u := unitsOfH1 p
+  have hs : (u.speed*u.shape.hH)^2=(HohmannTransfer.periSpeed p)^2 := by
+    rw [mul_pow, u.speed_sq, u.shape.h_sq, HohmannTransfer.periSpeed_sq]
+    dsimp [u, unitsOfH1, Units.shape]
+    field_simp [p.r₁_ne, p.r₂_ne, ne_of_gt p.sum_pos]
+    ring_nf
+    field_simp [ne_of_gt p.sum_pos]
+  have hp := mul_pos u.speed_pos u.shape.h_pos
+  have hq := HohmannTransfer.periSpeed_pos p
+  change u.speed*u.shape.hH=HohmannTransfer.periSpeed p
+  nlinarith
+
+lemma h1_apo_speed (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).speed*((unitsOfH1 p).shape.alpha*(unitsOfH1 p).shape.hH)=
+      HohmannTransfer.apoSpeed p := by
+  let u := unitsOfH1 p
+  have hs : (u.speed*(u.shape.alpha*u.shape.hH))^2=(HohmannTransfer.apoSpeed p)^2 := by
+    rw [mul_pow, mul_pow, u.speed_sq, u.shape.h_sq, HohmannTransfer.apoSpeed_sq]
+    dsimp [u, unitsOfH1, Units.shape]
+    field_simp [p.r₁_ne, p.r₂_ne, ne_of_gt p.sum_pos]
+    ring_nf
+    field_simp [ne_of_gt p.sum_pos]
+  have hp := mul_pos u.speed_pos (mul_pos u.shape.alpha_pos u.shape.h_pos)
+  have hq := HohmannTransfer.apoSpeed_pos p
+  change u.speed*(u.shape.alpha*u.shape.hH)=HohmannTransfer.apoSpeed p
+  nlinarith
+
+lemma h1_bound_eq_totalDeltaV (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).bound=HohmannTransfer.totalDeltaV p := by
+  calc
+    (unitsOfH1 p).bound =
+      ((unitsOfH1 p).speed*(unitsOfH1 p).shape.hH-(unitsOfH1 p).speed) +
+      ((unitsOfH1 p).circular₂-(unitsOfH1 p).speed*
+        ((unitsOfH1 p).shape.alpha*(unitsOfH1 p).shape.hH)) := by
+      dsimp [Units.bound, Units.circular₂, Shape.costH, Shape.burnH₁, Shape.burnH₂]
+      ring
+    _ = HohmannTransfer.totalDeltaV p := by
+      rw [h1_peri_speed, h1_apo_speed, h1_outer_speed, h1_speed]
+      rfl
+
+/-- Physical attainment from H1 plus a global lower bound against arbitrary
+smooth two-impulse competitors. Free time, free phase, fixed central field. -/
+theorem h1_global_two_impulse_minimum (p : HohmannTransfer.Parameters) :
+    (∀ t, deriv (deriv (HohmannTransfer.position p)) t =
+      -(p.mu/‖HohmannTransfer.position p t‖^3) • HohmannTransfer.position p t) ∧
+    HohmannTransfer.position p 0=HohmannTransfer.pack p.r₁ 0 ∧
+    HohmannTransfer.position p p.transferTime=HohmannTransfer.pack (-p.r₂) 0 ∧
+    (unitsOfH1 p).bound=
+      ‖HohmannTransfer.entryImpulse p‖+‖HohmannTransfer.exitImpulse p‖ ∧
+    (∀ a : KeplerArc p.mu,
+      (a.state a.t₀).radius=p.r₁ → (a.state a.t₁).radius=p.r₂ →
+      HohmannTransfer.totalDeltaV p ≤
+        (a.state a.t₀).impulse (HohmannTransfer.circularSpeed p.mu p.r₁)+
+        (a.state a.t₁).impulse (HohmannTransfer.circularSpeed p.mu p.r₂)) := by
+  refine ⟨HohmannTransfer.second_deriv_position p,
+    HohmannTransfer.position_departure p,HohmannTransfer.position_arrival p,?_,?_⟩
+  · rw [h1_bound_eq_totalDeltaV, HohmannTransfer.totalDeltaV_eq_sum_norms]
+  · intro a h₀ h₁
+    have h := KeplerArc.newton_arc_lower_bound (unitsOfH1 p) a h₀ h₁
+    simpa only [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] using h
+
+
+/-- The explicit H1 coast is a member of the same class used for the lower bound. -/
+def h1KeplerArc (p : HohmannTransfer.Parameters) : KeplerArc p.mu where
+  t₀ := 0
+  t₁ := p.transferTime
+  time_order := p.transferTime_pos
+  x := fun t => (HohmannTransfer.position p t).re
+  y := fun t => (HohmannTransfer.position p t).im
+  vx := fun t => (HohmannTransfer.velocity p t).re
+  vy := fun t => (HohmannTransfer.velocity p t).im
+  radius_pos := by
+    intro t _
+    simpa only [Complex.norm_def, Complex.normSq_apply, pow_two] using
+      HohmannTransfer.norm_position_pos p t
+  dx := by
+    intro t _
+    exact Complex.reCLM.hasFDerivAt.comp_hasDerivAt t (HohmannTransfer.hasDerivAt_position p t)
+  dy := by
+    intro t _
+    exact Complex.imCLM.hasFDerivAt.comp_hasDerivAt t (HohmannTransfer.hasDerivAt_position p t)
+  dvx := by
+    intro t _
+    have h := Complex.reCLM.hasFDerivAt.comp_hasDerivAt t
+      (HohmannTransfer.hasDerivAt_velocity_newton p t)
+    simpa only [Function.comp_def, Complex.reCLM_apply, HohmannTransfer.gravity,
+      Complex.smul_re, smul_eq_mul, Complex.norm_def, Complex.normSq_apply, pow_two, ← neg_div, div_mul_eq_mul_div] using h
+  dvy := by
+    intro t _
+    have h := Complex.imCLM.hasFDerivAt.comp_hasDerivAt t
+      (HohmannTransfer.hasDerivAt_velocity_newton p t)
+    simpa only [Function.comp_def, Complex.imCLM_apply, HohmannTransfer.gravity,
+      Complex.smul_im, smul_eq_mul, Complex.norm_def, Complex.normSq_apply, pow_two, ← neg_div, div_mul_eq_mul_div] using h
+
+lemma h1_state_radius (p : HohmannTransfer.Parameters) (t : ℝ) :
+    ((h1KeplerArc p).state t).radius = ‖HohmannTransfer.position p t‖ := by
+  simp only [h1KeplerArc, KeplerArc.state, PlanarState.radius, Complex.norm_def,
+    Complex.normSq_apply, pow_two]
+
+/-- The lower bound is attained within the actual Newtonian comparison class. -/
+theorem h1_attains_bound_in_kepler_class (p : HohmannTransfer.Parameters) :
+    ∃ a : KeplerArc p.mu,
+      (a.state a.t₀).radius = p.r₁ ∧ (a.state a.t₁).radius = p.r₂ ∧
+      (a.state a.t₀).impulse (unitsOfH1 p).speed +
+        (a.state a.t₁).impulse (unitsOfH1 p).circular₂ = (unitsOfH1 p).bound := by
+  let a := h1KeplerArc p
+  have h₀ : (a.state a.t₀).radius = p.r₁ := by
+    change ((h1KeplerArc p).state 0).radius = p.r₁
+    rw [h1_state_radius, HohmannTransfer.position_departure]
+    exact HohmannTransfer.norm_pack_eq p.r₁_pos.le (by ring)
+  have h₁ : (a.state a.t₁).radius = p.r₂ := by
+    change ((h1KeplerArc p).state p.transferTime).radius = p.r₂
+    rw [h1_state_radius, HohmannTransfer.position_arrival]
+    exact HohmannTransfer.norm_pack_eq p.r₂_pos.le (by ring)
+  have hx₀ : (a.state a.t₀).x = p.r₁ := by
+    change (HohmannTransfer.position p 0).re = _
+    simp
+  have hy₀ : (a.state a.t₀).y = 0 := by
+    change (HohmannTransfer.position p 0).im = _
+    simp
+  have hvx₀ : (a.state a.t₀).vx = 0 := by
+    change (HohmannTransfer.velocity p 0).re = _
+    simp
+  have hvy₀ : (a.state a.t₀).vy = HohmannTransfer.periSpeed p := by
+    change (HohmannTransfer.velocity p 0).im = _
+    simp
+  have hx₁ : (a.state a.t₁).x = -p.r₂ := by
+    change (HohmannTransfer.position p p.transferTime).re = _
+    simp
+  have hy₁ : (a.state a.t₁).y = 0 := by
+    change (HohmannTransfer.position p p.transferTime).im = _
+    simp
+  have hvx₁ : (a.state a.t₁).vx = 0 := by
+    change (HohmannTransfer.velocity p p.transferTime).re = _
+    simp
+  have hvy₁ : (a.state a.t₁).vy = -HohmannTransfer.apoSpeed p := by
+    change (HohmannTransfer.velocity p p.transferTime).im = _
+    simp
+  refine ⟨a, h₀, h₁, ?_⟩
+  rw [h1_bound_eq_totalDeltaV, HohmannTransfer.totalDeltaV,
+    h1_speed, h1_outer_speed]
+  simp only [PlanarState.impulse, h₀, h₁, hx₀, hy₀, hvx₀, hvy₀, hx₁, hy₁, hvx₁, hvy₁,
+    mul_zero, zero_div, add_zero, zero_pow (by decide : 2 ≠ 0), zero_add,
+    mul_neg, neg_div, mul_div_cancel_right₀ _ p.r₁_ne, mul_div_cancel_right₀ _ p.r₂_ne,
+    Real.sqrt_sq_eq_abs]
+  change |HohmannTransfer.deltaV₁ p| + _ =
+    HohmannTransfer.deltaV₁ p + HohmannTransfer.deltaV₂ p
+  rw [abs_of_pos (HohmannTransfer.deltaV₁_pos p)]
+  congr 1
+  rw [show -HohmannTransfer.apoSpeed p - -HohmannTransfer.circularSpeed p.mu p.r₂ =
+    HohmannTransfer.deltaV₂ p by unfold HohmannTransfer.deltaV₂; ring,
+    abs_of_pos (HohmannTransfer.deltaV₂_pos p)]
+
+end HohmannOptimality
+
+========================================================================
+FILE: HohmannOptimality/BiellipticWitness.lean
+========================================================================
+/- H2 uncompiled candidate. Two finite actual Kepler arcs + three velocity jumps.
+The second ellipse is followed from apoapsis to periapsis by a time shift.
+-/
+import HohmannOptimality.H1Bridge
+
+noncomputable section
+namespace HohmannOptimality
+namespace BiellipticWitness
+open HohmannTransfer
+
+def first : Parameters := ⟨1,1,64,by norm_num,by norm_num,by norm_num⟩
+def second : Parameters := ⟨1,16,64,by norm_num,by norm_num,by norm_num⟩
+def direct : Parameters := ⟨1,1,16,by norm_num,by norm_num,by norm_num⟩
+def secondPosition (t : ℝ) : ℂ := position second (t+second.transferTime)
+def secondVelocity (t : ℝ) : ℂ := velocity second (t+second.transferTime)
+def totalTime : ℝ := first.transferTime+second.transferTime
+
+def jump₁ : ℂ := velocity first 0-pack 0 1
+def jump₂ : ℂ := secondVelocity 0-velocity first first.transferTime
+def jump₃ : ℂ := pack 0 (1/4)-secondVelocity second.transferTime
+def cost : ℝ := ‖jump₁‖+‖jump₂‖+‖jump₃‖
+
+lemma secondPosition_deriv (t : ℝ) : HasDerivAt secondPosition (secondVelocity t) t := by
+  have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
+    (hasDerivAt_id t).add_const second.transferTime
+  have h := (hasDerivAt_position second (t+second.transferTime)).scomp t hshift
+  simpa [secondPosition, secondVelocity, Function.comp_def] using h
+lemma secondVelocity_deriv (t : ℝ) :
+    HasDerivAt secondVelocity (-(1/‖secondPosition t‖^3) • secondPosition t) t := by
+  have hshift : HasDerivAt (fun s : ℝ => s+second.transferTime) 1 t :=
+    (hasDerivAt_id t).add_const second.transferTime
+  have h := (hasDerivAt_velocity_newton second (t+second.transferTime)).scomp t hshift
+  simpa [secondPosition, secondVelocity, gravity, Function.comp_def, show second.mu = 1 from rfl] using h
+lemma second_newton (t : ℝ) :
+    deriv (deriv secondPosition) t = -(1/‖secondPosition t‖^3) • secondPosition t := by
+  have hd : deriv secondPosition=secondVelocity := funext (fun s => (secondPosition_deriv s).deriv)
+  rw [hd]
+  exact (secondVelocity_deriv t).deriv
+lemma second_start : secondPosition 0=pack (-64) 0 := by
+  simp [secondPosition, second]
+lemma second_end : secondPosition second.transferTime=pack 16 0 := by
+  have h := position_periodic second 0
+  simpa [secondPosition, two_mul, second] using h
+lemma second_velocity_start : secondVelocity 0=pack 0 (-apoSpeed second) := by
+  simp [secondVelocity]
+lemma second_velocity_end : secondVelocity second.transferTime=pack 0 (periSpeed second) := by
+  have h := velocity_periodic second 0
+  simpa [secondVelocity, two_mul] using h
+lemma junction : position first first.transferTime=secondPosition 0 := by
+  rw [second_start, position_arrival]
+  rfl
+lemma time_pos : 0 < totalTime := add_pos first.transferTime_pos second.transferTime_pos
+
+lemma first_peri : periSpeed first=Real.sqrt (128/65 : ℝ) := by
+  rw [periSpeed_formula]
+  norm_num [first]
+lemma second_peri : periSpeed second=Real.sqrt (1/10 : ℝ) := by
+  rw [periSpeed_formula]
+  norm_num [second]
+lemma first_apo : apoSpeed first=Real.sqrt (128/65 : ℝ)/64 := by
+  have hs : apoSpeed first ^ 2 = (1/2080 : ℝ) := by
+    rw [apoSpeed_sq]
+    norm_num [first]
+  have hroot : (Real.sqrt (128/65 : ℝ)/64) ^ 2 = (1/2080 : ℝ) := by
+    rw [div_pow, Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 128/65)]
+    norm_num
+  have hnonneg : 0 ≤ Real.sqrt (128/65 : ℝ)/64 := by positivity
+  nlinarith [apoSpeed_pos first, hnonneg, hs.trans hroot.symm]
+lemma second_apo : apoSpeed second=Real.sqrt (1/10 : ℝ)/4 := by
+  have hs : apoSpeed second ^ 2 = (1/160 : ℝ) := by
+    rw [apoSpeed_sq]
+    norm_num [second]
+  have hroot : (Real.sqrt (1/10 : ℝ)/4) ^ 2 = (1/160 : ℝ) := by
+    rw [div_pow, Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 1/10)]
+    norm_num
+  have hnonneg : 0 ≤ Real.sqrt (1/10 : ℝ)/4 := by positivity
+  nlinarith [apoSpeed_pos second, hnonneg, hs.trans hroot.symm]
+lemma direct_peri : periSpeed direct=Real.sqrt (32/17 : ℝ) := by
+  rw [periSpeed_formula]
+  norm_num [direct]
+lemma direct_apo : apoSpeed direct=Real.sqrt (32/17 : ℝ)/16 := by
+  have hs : apoSpeed direct ^ 2 = (1/136 : ℝ) := by
+    rw [apoSpeed_sq]
+    norm_num [direct]
+  have hroot : (Real.sqrt (32/17 : ℝ)/16) ^ 2 = (1/136 : ℝ) := by
+    rw [div_pow, Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 32/17)]
+    norm_num
+  have hnonneg : 0 ≤ Real.sqrt (32/17 : ℝ)/16 := by positivity
+  nlinarith [apoSpeed_pos direct, hnonneg, hs.trans hroot.symm]
+lemma direct_cost : totalDeltaV direct=Bielliptic.hohmannCost 16 := by
+  rw [Bielliptic.example_hohmann_closed]
+  unfold totalDeltaV deltaV₁ deltaV₂
+  rw [direct_peri, direct_apo]
+  norm_num [circularSpeed, direct]
+  ring
+
+lemma jump₁_norm : ‖jump₁‖=|Real.sqrt (128/65 : ℝ)-1| := by
+  unfold jump₁
+  rw [velocity_departure, first_peri, pack_sub, sub_self, norm_pack_vertical]
+lemma jump₂_norm : ‖jump₂‖=|Real.sqrt (1/10 : ℝ)/4-Real.sqrt (128/65 : ℝ)/64| := by
+  unfold jump₂
+  rw [second_velocity_start, velocity_arrival, first_apo, second_apo, pack_sub]
+  norm_num only [sub_self]
+  rw [norm_pack_vertical]
+  have h : -(Real.sqrt (1/10 : ℝ)/4)-(-(Real.sqrt (128/65 : ℝ)/64))=
+      -(Real.sqrt (1/10 : ℝ)/4-Real.sqrt (128/65 : ℝ)/64) := by ring
+  rw [h, abs_neg]
+lemma jump₃_norm : ‖jump₃‖=|Real.sqrt (1/10 : ℝ)-(1/4 : ℝ)| := by
+  unfold jump₃
+  rw [second_velocity_end, second_peri, pack_sub]
+  norm_num only [sub_self]
+  rw [norm_pack_vertical, abs_sub_comm]
+lemma cost_eq : cost=Bielliptic.cost Bielliptic.«example» := by
+  rw [cost, jump₁_norm, jump₂_norm, jump₃_norm]
+  unfold Bielliptic.cost Bielliptic.firstApoSpeed Bielliptic.secondApoSpeed
+  rw [Bielliptic.example_departure, Bielliptic.example_arrival]
+  norm_num [Bielliptic.«example»]
+  congr 2 <;> ring
+
+/-- The numerical comparison is linked to actual finite-time coast arcs and
+actual vector jump norms. No arrival time or third burn is sent to infinity. -/
+theorem physical_three_impulse_counterexample :
+    0 < totalTime ∧
+    (∀ t, deriv (deriv (position first)) t =
+      -(1/‖position first t‖^3) • position first t) ∧
+    (∀ t, deriv (deriv secondPosition) t =
+      -(1/‖secondPosition t‖^3) • secondPosition t) ∧
+    position first 0=pack 1 0 ∧
+    position first first.transferTime=secondPosition 0 ∧
+    secondPosition second.transferTime=pack 16 0 ∧
+    (9/1000 : ℝ) < totalDeltaV direct-(‖jump₁‖+‖jump₂‖+‖jump₃‖) := by
+  refine ⟨time_pos,?_,second_newton,?_,junction,second_end,?_⟩
+  · intro t
+    exact second_deriv_position first t
+  · exact position_departure first
+  · change (9/1000 : ℝ) < totalDeltaV direct-cost
+    rw [direct_cost, cost_eq]
+    exact Bielliptic.finite_bielliptic_saves_deltaV
+
+end BiellipticWitness
+end HohmannOptimality
+
+========================================================================
+FILE: Audit.lean
+========================================================================
+import HohmannOptimality
+#print axioms HohmannOptimality.Shape.corner_relation
+#print axioms HohmannOptimality.first_square_lower_bound
+#print axioms HohmannOptimality.second_square_lower_bound
+#print axioms HohmannOptimality.invariant_pair_of_first_square_eq
+#print axioms HohmannOptimality.endpoint_total_lower_bound
+#print axioms HohmannOptimality.endpoint_equality_characterization
+#print axioms HohmannOptimality.PhysicalEndpoints.physical_lower_bound
+#print axioms HohmannOptimality.KeplerArc.energy_conserved
+#print axioms HohmannOptimality.KeplerArc.angular_conserved
+#print axioms HohmannOptimality.KeplerArc.newton_arc_lower_bound
+#print axioms HohmannOptimality.Bielliptic.finite_bielliptic_saves_deltaV
+#print axioms HohmannOptimality.Bielliptic.not_universally_best_against_bielliptic
+#print axioms HohmannOptimality.newton_arc_ideal_fuel_lower_bound
+#print axioms HohmannOptimality.global_two_impulse_endpoint_optimality
+#print axioms HohmannOptimality.global_two_impulse_newton_lower_bound
+#print axioms HohmannOptimality.finite_three_impulse_counterexample
+#print axioms HohmannOptimality.KeplerArc.newton_arc_equality_endpoints
+
+========================================================================
+FILE: AuditPhysical.lean
+========================================================================
+import HohmannOptimalityPhysical
+#print axioms HohmannOptimality.h1_global_two_impulse_minimum
+#print axioms HohmannOptimality.BiellipticWitness.physical_three_impulse_counterexample
+#print axioms HohmannTransfer.hohmann_transfer
+#print axioms HohmannTransfer.exists_hohmann_transfer
+#print axioms HohmannOptimality.h1_attains_bound_in_kepler_class
+
+========================================================================
+FILE: ApiProbe.lean
+========================================================================
+import Mathlib.Analysis.Calculus.Deriv.Inv
+-- Compile this probe before repairing proof modules; no success log is prefilled.
+import Mathlib.Analysis.Calculus.Deriv.MeanValue
+import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Analysis.SpecialFunctions.ExpDeriv
+import Mathlib.Analysis.Complex.Norm
+import Mathlib.Tactic
+#check Real.sq_sqrt
+#check Real.sqrt_nonneg
+#check Real.sqrt_pos
+#check Real.exp_le_exp
+#check Real.exp_lt_exp
+#check Real.exp_add
+#check HasDerivAt.sqrt
+#check HasDerivAt.pow
+#check HasDerivAt.div
+#check HasDerivAt.add_const
+#check constant_of_has_deriv_right_zero
+#check div_le_div_iff_of_pos_right
+#check div_lt_div_iff_of_pos_right
+#check lt_or_gt_of_ne
+#check abs_sub_comm
+#check Complex.normSq_eq_norm_sq
+
+========================================================================
+FILE: Examples.lean
+========================================================================
+/- H2 examples: genuine arbitrary competitors, not a numeric replacement. -/
+import HohmannOptimality
+open HohmannOptimality
+noncomputable section
+
+def radiusRatio16 : Shape := ⟨1/16,by norm_num,by norm_num⟩
+example (z : EndpointData radiusRatio16) : radiusRatio16.costH ≤ z.cost :=
+  endpoint_total_lower_bound _ z
+example : (9/1000 : ℝ) < Bielliptic.hohmannCost 16-Bielliptic.cost Bielliptic.«example» :=
+  finite_three_impulse_counterexample
+example (mu r₁ r₂ : ℝ) (hmu : 0 < mu) (hr : 0 < r₁) (hrr : r₁ < r₂)
+    (a : KeplerArc mu)
+    (h₀ : (a.state a.t₀).radius=r₁) (h₁ : (a.state a.t₁).radius=r₂) :
+    (HohmannOptimality.Units.mk mu r₁ r₂ hmu hr hrr).bound ≤
+      (a.state a.t₀).impulse ((HohmannOptimality.Units.mk mu r₁ r₂ hmu hr hrr).speed)+
+      (a.state a.t₁).impulse ((HohmannOptimality.Units.mk mu r₁ r₂ hmu hr hrr).circular₂) :=
+  global_two_impulse_newton_lower_bound (HohmannOptimality.Units.mk mu r₁ r₂ hmu hr hrr) a h₀ h₁

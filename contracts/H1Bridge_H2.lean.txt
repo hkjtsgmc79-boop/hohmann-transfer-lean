@@ -1,0 +1,81 @@
+/- H2 uncompiled candidate. H1 sources are copied byte-for-byte, not re-certified.
+This optional layer ties the independent lower bound to H1's physical witness.
+-/
+import HohmannOptimality.PublicStatement
+import HohmannTransfer.PublicStatement
+
+noncomputable section
+namespace HohmannOptimality
+
+/-- Data conversion only; no optimality assumption is added to H1. -/
+def unitsOfH1 (p : HohmannTransfer.Parameters) : Units :=
+  ⟨p.mu,p.r₁,p.r₂,p.mu_pos,p.r₁_pos,p.outward⟩
+
+lemma h1_speed (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).speed=HohmannTransfer.circularSpeed p.mu p.r₁ := rfl
+lemma h1_outer_speed (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).circular₂=HohmannTransfer.circularSpeed p.mu p.r₂ :=
+  (unitsOfH1 p).circular₂_eq_sqrt
+
+lemma h1_peri_speed (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).speed*(unitsOfH1 p).shape.hH=HohmannTransfer.periSpeed p := by
+  let u := unitsOfH1 p
+  have hs : (u.speed*u.shape.hH)^2=(HohmannTransfer.periSpeed p)^2 := by
+    rw [mul_pow, u.speed_sq, u.shape.h_sq, HohmannTransfer.periSpeed_sq]
+    dsimp [u, unitsOfH1, Units.shape]
+    field_simp [p.r₁_ne, p.r₂_ne, ne_of_gt p.sum_pos]
+    <;> ring
+  have hp := mul_pos u.speed_pos u.shape.h_pos
+  have hq := HohmannTransfer.periSpeed_pos p
+  change u.speed*u.shape.hH=HohmannTransfer.periSpeed p
+  nlinarith
+
+lemma h1_apo_speed (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).speed*((unitsOfH1 p).shape.alpha*(unitsOfH1 p).shape.hH)=
+      HohmannTransfer.apoSpeed p := by
+  let u := unitsOfH1 p
+  have hs : (u.speed*(u.shape.alpha*u.shape.hH))^2=(HohmannTransfer.apoSpeed p)^2 := by
+    rw [mul_pow, mul_pow, u.speed_sq, u.shape.h_sq, HohmannTransfer.apoSpeed_sq]
+    dsimp [u, unitsOfH1, Units.shape]
+    field_simp [p.r₁_ne, p.r₂_ne, ne_of_gt p.sum_pos]
+    <;> ring
+  have hp := mul_pos u.speed_pos (mul_pos u.shape.alpha_pos u.shape.h_pos)
+  have hq := HohmannTransfer.apoSpeed_pos p
+  change u.speed*(u.shape.alpha*u.shape.hH)=HohmannTransfer.apoSpeed p
+  nlinarith
+
+lemma h1_bound_eq_totalDeltaV (p : HohmannTransfer.Parameters) :
+    (unitsOfH1 p).bound=HohmannTransfer.totalDeltaV p := by
+  calc
+    (unitsOfH1 p).bound =
+      ((unitsOfH1 p).speed*(unitsOfH1 p).shape.hH-(unitsOfH1 p).speed) +
+      ((unitsOfH1 p).circular₂-(unitsOfH1 p).speed*
+        ((unitsOfH1 p).shape.alpha*(unitsOfH1 p).shape.hH)) := by
+      dsimp [Units.bound, Units.circular₂, Shape.costH, Shape.burnH₁, Shape.burnH₂]
+      ring
+    _ = HohmannTransfer.totalDeltaV p := by
+      rw [h1_peri_speed, h1_speed, h1_outer_speed, h1_apo_speed]
+      rfl
+
+/-- Physical attainment from H1 plus a global lower bound against arbitrary
+smooth two-impulse competitors. Free time, free phase, fixed central field. -/
+theorem h1_global_two_impulse_minimum (p : HohmannTransfer.Parameters) :
+    (∀ t, deriv (deriv (HohmannTransfer.position p)) t =
+      -(p.mu/‖HohmannTransfer.position p t‖^3) • HohmannTransfer.position p t) ∧
+    HohmannTransfer.position p 0=HohmannTransfer.pack p.r₁ 0 ∧
+    HohmannTransfer.position p p.transferTime=HohmannTransfer.pack (-p.r₂) 0 ∧
+    (unitsOfH1 p).bound=
+      ‖HohmannTransfer.entryImpulse p‖+‖HohmannTransfer.exitImpulse p‖ ∧
+    (∀ a : KeplerArc p.mu,
+      (a.state a.t₀).radius=p.r₁ → (a.state a.t₁).radius=p.r₂ →
+      HohmannTransfer.totalDeltaV p ≤
+        (a.state a.t₀).impulse (HohmannTransfer.circularSpeed p.mu p.r₁)+
+        (a.state a.t₁).impulse (HohmannTransfer.circularSpeed p.mu p.r₂)) := by
+  refine ⟨HohmannTransfer.second_deriv_position p,
+    HohmannTransfer.position_departure p,HohmannTransfer.position_arrival p,?_,?_⟩
+  · rw [h1_bound_eq_totalDeltaV, HohmannTransfer.totalDeltaV_eq_sum_norms]
+  · intro a h₀ h₁
+    have h := KeplerArc.newton_arc_lower_bound (unitsOfH1 p) a h₀ h₁
+    simpa only [h1_bound_eq_totalDeltaV, h1_speed, h1_outer_speed] using h
+
+end HohmannOptimality

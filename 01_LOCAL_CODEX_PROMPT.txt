@@ -1,0 +1,27 @@
+你负责执行并修复骋原AI实验室霍曼转移 H2 Lean 工程。本次不是重写数学目标，不是新开项目。
+
+先阅读 README.md、MATHEMATICAL_SPEC.md、docs/SEMANTIC_CONTRACT.md、H2_REPORT.md。
+状态：全部候选源码尚未在Lean编译。原H1模块也没有提供内核通过证据，不能默认已通过。
+
+使用本机已有Lean4.30.0与Mathlib c5ea00351c28e24afc9f0f84379aa41082b1188f缓存。保留原目录；在独立解压副本中工作。不要升级工具链或修改共享Mathlib。
+执行：
+  bash scripts/verify.sh core --lean <真实Lean路径> --mathlib-root <真实Mathlib路径>
+先修复 core，再运行同样参数的 full。可以修复API、类型、局部证明策略和增加真正的辅助引理，不得降低数学命题。
+
+core顺序：Shape → EndpointBounds → EndpointOptimality → PhysicalUnits → PlanarState → KeplerConservation → Bielliptic → Fuel → PublicStatement。
+full额外：12个H1模块 → H1Bridge → BiellipticWitness。H1Bridge必须证明显式H1轨迹真正取到全局下界，BiellipticWitness必须匹配两条实际椭圆滑行段及三个速度跳变。
+
+必须保留：
+1. 比较集合为所有有效的两脉冲、同平面同向圆轨道转移；不得限制竞争者也必须切向、椭圆、正角动量、固定飞行时间。
+2. 端点径向速度可以非零，两次脉冲使用欧氏范数之和，不能改成范数平方之和。
+3. KeplerArc只表示有效的平滑非碰撞牛顿滑行段。能量和角动量守恒必须从真实HasDerivAt导出，不能添加为输入字段以绕过证明。
+4. `global_two_impulse_newton_lower_bound`保留真实动力学到成本下界的桥梁。端点松弛问题并非自动等于全部可实现轨迹；由H1完成达到下界的存在性连接。
+5. 反例必须保留有限半径1→64→16和严格Δv差大于9/1000；包括中途点火和末次逆向减速，不得只比较极限或小数。
+6. 燃料解释保持理想单级固定排气速度等边界，不得泛化为任意发动机或带分级航天器。
+7. 不能声称唯一的时间参数化轨迹；等号只固定端点径向速度、切向速度与能量角动量，允许旋转和额外绕行。
+8. 不得使用sorry、admit、axiom、unsafe、native_decide、sorryAx或把目标写成新增假设。保留正常classical选择依赖。
+9. 不得编辑contracts来掩盖主定理弱化；不编辑生成的单文件，修改模块后再导出。
+
+若数学规格确需更改，停止该变更并明确报告原因；其余独立模块可继续修复。
+完成后从干净项目构建目录复跑，通过后检查全部重点定理公理，只允许propext/Classical.choice/Quot.sound。
+最后返回脚本生成的最后一次回传ZIP、修复清单、完整退出码与真实日志。区分core PASS、full PASS和未执行；不得将Python结果写成Lean通过。没有成功执行就如实返回BLOCKED或FAIL。

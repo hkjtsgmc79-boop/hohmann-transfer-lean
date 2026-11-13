@@ -1,0 +1,18 @@
+import HohmannOptimality
+#print axioms HohmannOptimality.Shape.corner_relation
+#print axioms HohmannOptimality.first_square_lower_bound
+#print axioms HohmannOptimality.second_square_lower_bound
+#print axioms HohmannOptimality.invariant_pair_of_first_square_eq
+#print axioms HohmannOptimality.endpoint_total_lower_bound
+#print axioms HohmannOptimality.endpoint_equality_characterization
+#print axioms HohmannOptimality.PhysicalEndpoints.physical_lower_bound
+#print axioms HohmannOptimality.KeplerArc.energy_conserved
+#print axioms HohmannOptimality.KeplerArc.angular_conserved
+#print axioms HohmannOptimality.KeplerArc.newton_arc_lower_bound
+#print axioms HohmannOptimality.Bielliptic.finite_bielliptic_saves_deltaV
+#print axioms HohmannOptimality.Bielliptic.not_universally_best_against_bielliptic
+#print axioms HohmannOptimality.newton_arc_ideal_fuel_lower_bound
+#print axioms HohmannOptimality.global_two_impulse_endpoint_optimality
+#print axioms HohmannOptimality.global_two_impulse_newton_lower_bound
+#print axioms HohmannOptimality.finite_three_impulse_counterexample
+#print axioms HohmannOptimality.KeplerArc.newton_arc_equality_endpoints
